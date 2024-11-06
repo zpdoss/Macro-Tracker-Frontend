@@ -3,8 +3,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import './App.css'
 
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage.tsx';
+import RegisterPage from './pages/RegisterPage.tsx';
 import DiaryPage from './pages/DiaryPage.tsx';
 import AboutUsPage from './pages/AboutUsPage.tsx';
 import CalendarPage from './pages/CalendarPage.tsx';
