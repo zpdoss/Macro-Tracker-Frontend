@@ -3,7 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 //import { Helmet } from 'react-helmet';
 
 
-//import './App.css';
+import './App.css';
 //import './NavBar.tsx';
 
 import LoginPage from './pages/LoginPage';
