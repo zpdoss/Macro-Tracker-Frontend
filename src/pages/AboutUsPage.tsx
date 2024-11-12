@@ -1,11 +1,12 @@
 import AboutUs from '../components/AboutUs.tsx';
-import PageTitle from '../components/PageTitle.tsx';
+//import PageTitle from '../components/PageTitle.tsx';
+import NavBar from '../components/NavBar.tsx'
 
 const AboutUsPage = () =>
 {
     return(
         <div>
-            <PageTitle />
+            <NavBar />
             <AboutUs />
         </div>
     );

@@ -68,7 +68,22 @@ function Login()
     function doLogin(event:any) : void
     {
         event.preventDefault();
-        alert('doIt()');
+        alert('Now going to diary page');
+        window.location.href = '/Diary'
+    }
+
+    function goToRegister(event:any) : void
+    {
+        event.preventDefault();
+        alert('Now going to the register page');
+        window.location.href = '/Register'
+    }
+
+    function forgotPass(event:any) : void
+    {
+        event.preventDefault();
+        alert('Now going to the forgot password page');
+        window.location.href = '/ForgotPass'
     }
 
     return(
@@ -83,12 +98,15 @@ function Login()
                 <label htmlFor="username">Password</label><br />
                 <input type="password" id="loginPassword" placeholder="Password" /><br />
 
-                <input type="submit" id="loginButton" className="buttons" value = "Do It"
+                <input type="submit" id="loginButton" className="buttons" value = "Login"
                 onClick={doLogin} />
                 <span id="loginResult"></span>
 
                 <input type="submit" id="goToRegister" className="buttons" value = "Register"
-                onClick={doLogin} />
+                onClick={goToRegister} /><br/>
+
+                <input type="submit" id="ForgotPass" className="buttons" value = "Forgot Password"
+                onClick={forgotPass} />
             </div>
         </>
     );

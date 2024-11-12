@@ -2,7 +2,8 @@ function Diary()
 {
     return(
         <>
-            <h2>This Is the Diary Page</h2>
+            <h2>Welcome to your food diary</h2>
+            
         </>
     );
 };

@@ -1,16 +1,14 @@
-import PageTitle from '../components/PageTitle';
+/*import PageTitle from '../components/PageTitle.tsx';
 import LoggedInName from '../components/LoggedInName';
 import CardUI from '../components/CardUI';
-
 const CardPage = () =>
 {
-  return(
-    <div>
-      <PageTitle />
-      <LoggedInName />
-      <CardUI />
-    </div>
-  );
+    return(
+        <div>
+            <PageTitle />
+            <LoggedInName />
+            <CardUI />
+        </div>
+    );
 }
-
-export default CardPage;
+export default CardPage;*/

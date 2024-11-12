@@ -3,7 +3,14 @@ function Register()
     function doRegister(event:any) : void
     {
         event.preventDefault();
-        alert('doIt()');
+        alert('Now going to the verificaiton page');
+        window.location.href = '/Verify'
+    }
+    function goToLogin(event:any) : void
+    {
+        event.preventDefault();
+        alert('Now going to the login page');
+        window.location.href = '/'
     }
     return(
         <>
@@ -28,7 +35,7 @@ function Register()
                 <span id="loginResult"></span>
 
                 <input type="submit" id="goToRegister" className="buttons" value = "Login"
-                onClick={doRegister} />
+                onClick={goToLogin} />
             </div>
         </>
     );
