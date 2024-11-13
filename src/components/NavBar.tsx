@@ -1,4 +1,4 @@
-import "./NavBar.css"
+//import "./NavBar.css"
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import React from 'react';
 
@@ -7,10 +7,11 @@ const NavBar: React.FC = () =>
 {
     return(
         <nav className="nav">
-            <h1 className="siteTitle">
+            <h1 id="siteTitle">
                 Di-orie
             </h1>
             <ul>
+                <CustomLink to="/">Log Out</CustomLink>
                 <CustomLink to="/Diary">Diary</CustomLink>
                 <CustomLink to="/Recipes">Custom Foods</CustomLink>
                 <CustomLink to="/Account">Account</CustomLink>

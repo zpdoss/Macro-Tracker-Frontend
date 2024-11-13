@@ -90,22 +90,22 @@ function Login()
         <>
             
             <div id="loginDiv">
-                <span id="inner-title">PLEASE LOG IN</span><br />
+                
+<br/>
+                <label id="loginLabel" htmlFor="username">Username:</label><br />
+                <input type="text" id="loginInput" placeholder="Username" /><br />
 
-                <label htmlFor="username">Username</label><br />
-                <input type="text" id="loginName" placeholder="Username" /><br />
+                <label id="loginLabel" htmlFor="username">Password:</label><br />
+                <input type="password" id="loginInput" placeholder="Password" /><br />
 
-                <label htmlFor="username">Password</label><br />
-                <input type="password" id="loginPassword" placeholder="Password" /><br />
-
-                <input type="submit" id="loginButton" className="buttons" value = "Login"
+                <input type="submit" id="loginButtons" className="buttons" value = "Login"
                 onClick={doLogin} />
                 <span id="loginResult"></span>
 
-                <input type="submit" id="goToRegister" className="buttons" value = "Register"
+                <input type="submit" id="loginButtons" className="buttons" value = "Register"
                 onClick={goToRegister} /><br/>
 
-                <input type="submit" id="ForgotPass" className="buttons" value = "Forgot Password"
+                <input type="submit" id="loginButtons" className="buttons" value = "Forgot Password"
                 onClick={forgotPass} />
             </div>
         </>
