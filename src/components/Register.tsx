@@ -18,23 +18,23 @@ function Register()
             <div id="registerDiv">
                 <br />
 
-                <label id="loginLabel" htmlFor="First Name">First Name</label><span id="registerLabelSpan">
-                <label id="loginLabel" htmlFor="Email">Email</label></span><br />
+                <label id="firstNameLabel" htmlFor="First Name">First Name</label><span id="registerLabelSpan">
+                <label id="emailLabel" htmlFor="Email">Email</label></span><br />
                 
-                <input type="text" id="registerInput" placeholder="John" /><span id="registerInputSpan">
-                <input type="text" id="registerInput" placeholder="john.doe@gmail.com" /></span><br />
+                <input type="text" id="firstNameInput" placeholder="John" /><span id="registerInputSpan">
+                <input type="text" id="emailInput" placeholder="john.doe@gmail.com" /></span><br />
 
-                <label id="loginLabel" htmlFor="Last Name">Last Name</label><span id="registerLabelSpan">
-                <label id="loginLabel" htmlFor="Password">Password</label></span><br />
+                <label id="lastNameLabel" htmlFor="Last Name">Last Name</label><span id="registerLabelSpan">
+                <label id="passwordLabel" htmlFor="Password">Password</label></span><br />
 
-                <input type="text" id="registerInput" placeholder="Doe" /><span id="registerInputSpan">              
-                <input type="password" id="registerInput" placeholder="Password" /></span>  <br />
+                <input type="text" id="lastNameInput" placeholder="Doe" /><span id="registerInputSpan">              
+                <input type="password" id="passwordInput" placeholder="Password" /></span>  <br />
 
-                <input type="submit" id="loginButtons" className="buttons" value = "Sign Up"
+                <input type="submit" id="registerButton" className="buttons" value = "Sign Up"
                 onClick={doRegister} /> <br/>
                 <span id="loginResult"></span>
 
-                <input type="submit" id="loginButtons" className="buttons" value = "To Login"
+                <input type="submit" id="goToLoginButton" className="buttons" value = "To Login"
                 onClick={goToLogin} />
             </div>
         </>
