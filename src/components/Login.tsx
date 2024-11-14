@@ -1,4 +1,4 @@
-//import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 function Login()
 {
@@ -64,12 +64,55 @@ function Login()
         setPassword( e.target.value );
     }*/
 
+    const [message,setMessage] = useState('');
+    const [loginName,setLoginName] = React.useState('');
+    const [loginPassword,setPassword] = React.useState('');
 
-    function doLogin(event:any) : void
+    async function doLogin(event:any) : Promise<void>
     {
         event.preventDefault();
-        alert('Now going to diary page');
-        window.location.href = '/Diary'
+        //alert('Now logging in');
+        //window.location.href = '/Diary'
+
+        var obj = {login:loginName,password:loginPassword};
+        var js = JSON.stringify(obj);
+
+        try
+        {
+            const response = await fetch('http://COP4331-t23.xyz:5079/api/login',
+                {method:'POST',body:js,headers:{'Content-Type':'application/json'}}
+            );
+
+            var res = JSON.parse(await response.text());
+
+            if( res.success == false)
+            {
+                setMessage('User/Password combination incorrect');
+            }
+            else
+            {
+                var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
+                localStorage.setItem('user_data', JSON.stringify(user));
+
+                setMessage('');
+                window.location.href = '/Diary';
+            }
+        }
+        catch(error:any)
+        {
+            alert(error.toString());
+            return;
+        }
+    };
+
+    function handleSetLoginName( e: any ) : void
+    {
+        setLoginName( e.target.value );
+    }
+
+    function handleSetPassword( e: any ) : void
+    {
+        setPassword( e.target.value );
     }
 
     function goToRegister(event:any) : void
@@ -92,14 +135,16 @@ function Login()
                 
                 <br/>
                 <label id="loginLabel" htmlFor="username">Username:</label><br />
-                <input type="text" id="loginInput" placeholder="Username" /><br />
+                <input type="text" id="loginInput" placeholder="Username"
+                onChange={handleSetLoginName} /><br />
 
                 <label id="loginLabel" htmlFor="username">Password:</label><br />
-                <input type="password" id="loginInput" placeholder="Password" /><br />
+                <input type="password" id="loginInput" placeholder="Password"
+                onChange={handleSetPassword} /><br />
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Login"
                 onClick={doLogin} />
-                <span id="loginResult"></span>
+                <span id="loginResult">{message}</span>
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Register"
                 onClick={goToRegister} /><br/>
