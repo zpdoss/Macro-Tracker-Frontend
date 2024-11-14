@@ -87,11 +87,10 @@ function Login()
     }
 
     return(
-        <>
-            
+        <> 
             <div id="loginDiv">
                 
-<br/>
+                <br/>
                 <label id="loginLabel" htmlFor="username">Username:</label><br />
                 <input type="text" id="loginInput" placeholder="Username" /><br />
 

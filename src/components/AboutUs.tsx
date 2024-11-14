@@ -5,53 +5,77 @@ import Luke from '../assets/Luke.jpg';
 import Noah from '../assets/Noah.jpg';
 import James from '../assets/James.jpg';
 
-//style={{ margin: '100px' }}
-
-/*function AboutUs()
-{
-    return(
-        <>
-            <h2>This Is the About Us Page</h2>
-
-            <div id="bodyContainer">
-                <div id = "container">
-                    <div id="grid-container">
-                        <div id="grid-item"><img src='../assets/Zach.jpg' alt="Zach"/><br/>Zach Doss</div>
-                        <div id="grid-item"><img src='../assets/Noah.jpg'/><br/>Noah Bethel</div>
-                        <div id="grid-item"><img src='../assets/Arjun.jpg'/><br/>Arjun Vooturi</div>
-                        <div id="grid-item"><img src='../assets/Dylan.jpg'/><br/>Dylan Katchen</div>
-                        <div id="grid-item"><img src='../assets/Luke.jpg'/><br/>Luke Reyes</div>
-                        <div id="grid-item"><img src='../assets/James.jpg'/><br/>James Mims</div>
-                    </div> 
-                </div>
-            </div>
-        </>
-    );
-};
-export default AboutUs;*/
 
 function AboutUs()
 {
     return(
         <>
-            <h2>This Is the About Us Page</h2>
+            <h2 id="aboutTitle">About Us</h2>
 
-            <div id="bodyContainer">
-                <div id = "container">
-                    <div id="grid-container">
-                        <div className="grid-item"><img src={Zach} style={{ width: '200px', }} /><br/>Zach Doss</div>
-                        <div id="grid-item"><img src={James} style={{ width: '200px', }} /><br/>Zach Doss</div>
-                        <div id="grid-item"><img src={Noah} style={{ width: '200px', }}/><br/>Zach Doss</div>
-                        <div id="grid-item"><img src={Luke} style={{ width: '200px', }}/><br/>Zach Doss</div>
-                        <div id="grid-item"><img src={Arjun} style={{ width: '200px', }}/><br/>Zach Doss</div>
-                        <div id="grid-item"><img src={Dylan} style={{ width: '200px', }}/><br/>Zach Doss</div>
-
-
-                       
-                    </div> 
+            <div className="row">
+                <div className="column">
+                    <div className="card">
+                    <br/><img className="aboutUs" src={Arjun} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">Arjun Vooturi</h2>
+                        <p className="aboutUsTitle">PM/App</p>
+                    </div>
+                    </div>
                 </div>
-            </div>
+         
+                <div className="column">
+                    <div className="card">
+                    <br/><img className="aboutUs" src={Dylan} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">Dylan Katchen</h2>
+                        <p className="aboutUsTitle">API</p>
+                    </div>
+                    </div>
+                </div>
+            
+                <div className="column">
+                    <div className="card">
+                    <br/> <img className="aboutUs" src={Noah} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">Noah Bethel</h2>
+                        <p className="aboutUsTitle">API</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div className="column">
+                    <div className="card">
+                    <br/><img className="aboutUs" src={Luke} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">Luke Reyes</h2>
+                        <p className="aboutUsTitle">Frontend</p>
+                    </div>
+                    </div>
+                </div>
+            
+
+                <div className="column">
+                    <div className="card">
+                    <br/><img className="aboutUs" src={Zach} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">Zach Doss</h2>
+                        <p className="aboutUsTitle">Frontend/Server</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div className="column">
+                    <div className="card">
+                    <br/><img className="aboutUs" src={James} style={{ width: '165px', }} />
+                    <div className="container">
+                        <h2 id="name">James Mims</h2>
+                        <p className="aboutUsTitle">Frontend</p>
+                    </div>
+                    </div>
+                </div>
+            </div>   
         </>
     );
 };
 export default AboutUs;
+

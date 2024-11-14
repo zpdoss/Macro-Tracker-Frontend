@@ -39,16 +39,16 @@
 #registerDiv
 {
 	color: #ffffff;
-	background-color: rgba(31,78,120,0.5);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 0px 35px 35px 35px;
+	background-color: rgba(31, 120, 58, 0.75);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 0px 35px 35px 35px;
 	
 	width: 600px;
 	display: inline-block;
@@ -93,6 +93,7 @@
   font-size: 15px;
   background: #ffffff;
   color: black;
+  text-align: center;
 }
 
 #registerInput{
@@ -200,3 +201,65 @@ body {
   font-size: 20;
 }
 
+/*About Us*/
+.column {
+  float:inline-start;
+  width: 15%;
+  margin: 0 auto;  
+  padding: 0 5%;
+  color: #333333;
+  text-align: center;
+  
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 175px) {
+  .column {
+    width: 100%;
+    display: block;
+    background-color: #7be75a;
+  }
+}
+
+/* Add some shadows to create a card effect */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 175px;
+  border-radius: 15px;
+  background-color: #7be75a;
+}
+
+/* Some left and right padding inside the container */
+.container {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+
+}
+
+.aboutUsTitle {
+  color: #333333;
+  font-size: 15px;
+}
+
+.aboutSubTitle {
+  color: #333333;
+}
+
+.aboutUs{
+  border-radius: 15px;  
+}
+
+#aboutTitle{
+  text-align: center;
+  color: #7be75a;
+
+}
+#name{
+  font-size: 20px;
+}

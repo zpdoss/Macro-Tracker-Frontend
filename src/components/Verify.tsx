@@ -15,14 +15,17 @@ function Verify()
 
     return(
         <>
-            <label htmlFor="Verification">Please enter the 6 digit verification code: </label><br />
-            <input type="text" id="Verification" placeholder="123456" /><br />
-            <input type="submit" id="Verify" className="buttons" value = "Verify Account"
-                onClick={verifyAccnt} /> <br />
+        <div id="loginDiv">
+            <br />
+                <label htmlFor="Verification">Enter the 6 digit verification code:</label><br />
+                <input type="text" id="loginInput" placeholder="123456" /><br />
+                <input type="submit" id="loginButtons" className="buttons" value = "Verify Account"
+                    onClick={verifyAccnt} /> <br />
 
-            <label htmlFor="Verification">Didn't recieve an email? Click hear to have a new one sent: </label><br />
-            <input type="submit" id="Verify" className="buttons" value = "Resend"
-                onClick={sendCode} />
+                <label htmlFor="Verification">Didn't recieve an email? Click hear to have a new one sent: </label><br />
+                <input type="submit" id="loginButtons" className="buttons" value = "Resend"
+                    onClick={sendCode} />
+            </div>
         </>
     );
 };
