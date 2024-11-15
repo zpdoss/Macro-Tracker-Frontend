@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 
+/*
 const [message,setMessage] = useState('');
 const [firstName,setFirstName] = React.useState('');
 const [lastName,setLastName] = React.useState('');
 const [email,setEmail] = React.useState('');
 const [username,setUsername] = React.useState('');
 const [password,setPassword] = React.useState('');
+*/
 
 function Register()
 {
+    /*
     function handleSetFirstName( e: any ) : void
     {
         setFirstName( e.target.value );
@@ -33,6 +36,7 @@ function Register()
     {
         setPassword( e.target.value );
     }
+    */
 
     function doRegister(event:any) : void
     {
@@ -56,17 +60,17 @@ function Register()
                 <label id="loginLabel" htmlFor="First Name">First Name</label><span id="registerLabelSpan">
                 <label id="loginLabel" htmlFor="Username">Username</label></span><br />
                 
-                <input type="text" id="registerInput" placeholder="John" onChange={handleSetFirstName}/><span id="registerInputSpan">
-                <input type="text" id="registerInput" placeholder="username" onChange={handleSetUsername}/></span><br />
+                <input type="text" id="registerInput" placeholder="John" /*onChange={handleSetFirstName}*//><span id="registerInputSpan">
+                <input type="text" id="registerInput" placeholder="Username" /*onChange={handleSetUsername}*//></span><br />
 
                 <label id="loginLabel" htmlFor="Last Name">Last Name</label><span id="registerLabelSpan">
                 <label id="loginLabel" htmlFor="Password">Password</label></span><br />
 
-                <input type="text" id="registerInput" placeholder="Doe" onChange={handleSetLastName}/><span id="registerInputSpan">              
-                <input type="password" id="registerInput" placeholder="Password" onChange={handleSetPassword}/></span>  <br />
+                <input type="text" id="registerInput" placeholder="Doe" /*onChange={handleSetLastName}*//><span id="registerInputSpan">              
+                <input type="password" id="registerInput" placeholder="Password" /*onChange={handleSetPassword}*//></span>  <br />
 
                 <label id="loginLabel" htmlFor="Email">Email</label><br />
-                <input type="password" id="registerInput" placeholder="john.doe@gmail.com" onChange={handleSetUsername}/> <br />
+                <input type="password" id="registerInput" placeholder="john.doe@gmail.com" /*onChange={handleSetUsername}*//> <br />
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Sign Up"
                 onClick={doRegister} /> <br/>
