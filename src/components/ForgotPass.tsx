@@ -15,6 +15,7 @@ function ForgotPass()
         event.preventDefault();
         //alert('An email will now be sent with instructions to create a new password');
 
+        // takes email in as argument
         var obj = {email};
         var js = JSON.stringify(obj);
 
