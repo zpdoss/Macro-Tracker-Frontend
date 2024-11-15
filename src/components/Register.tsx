@@ -85,7 +85,6 @@ function Register()
     function goToLogin(event:any) : void
     {
         event.preventDefault();
-        alert('Now going to the login page');
         window.location.href = '/'
     }
 

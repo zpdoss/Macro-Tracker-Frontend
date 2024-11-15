@@ -1,6 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #96ff76;
+  background-color: #333333;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -14,14 +14,14 @@
   text-align: center;
   width: 100%;
   font-family: 'arial', serif;
-  color: #333333;
+  color: #96ff76;
 }
 
 
-/*Login / Register*/
+/*Login / Register Stuff*/
 #loginDiv {
   color: #ffffff;
-	background-color: rgba(31,78,120,0.5);
+	background-color: rgba(31, 120, 58, 0.75);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 55%;
@@ -39,16 +39,16 @@
 #registerDiv
 {
 	color: #ffffff;
-	background-color: rgba(31,78,120,0.5);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 0px 35px 35px 35px;
+	background-color: rgba(31, 120, 58, 0.75);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 55%;
+  left: 50%;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 0px 35px 35px 35px;
 	
 	width: 600px;
 	display: inline-block;
@@ -93,6 +93,7 @@
   font-size: 15px;
   background: #ffffff;
   color: black;
+  text-align: center;
 }
 
 #registerInput{
@@ -158,7 +159,7 @@ body {
 }
 
 .nav{
-  background-color: #333;
+  background-color: #4aa82d;
   color: white;
   width: 100%;
   display: flex;
@@ -185,60 +186,251 @@ body {
 }
 
 .nav li.active{
-  background-color:#555;
+  background-color:#75c85c;
 }
 
 .nav li:hover{
-  background-color:#7a7a7a;
+  background-color:#88e36c;
   
 }
 
 #siteTitle
 {
-  color: #96ff76;
+  color: #333333;
   padding: 10px;
   font-size: 20;
 }
 
-/*AboutUs*/
-/*#container
-{
-  width: 100%;
-  /*margin-top: 70px;
-  overflow:hidden;
-}*/
-
-/* grid w/images and names */
-#grid-container 
-{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
-    padding: 20px;
-	
+/*About Us*/
+.column {
+  float:inline-start;
+  width: 15%;
+  margin: 0 auto;  
+  padding: 0 5%;
+  color: #333333;
+  text-align: center;
+  
 }
 
-#grid-item {
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 175px) {
+  .column {
+    width: 100%;
+    display: block;
+    background-color: #7be75a;
+  }
+}
+
+/* Add some shadows to create a card effect */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 175px;
+  border-radius: 15px;
+  background-color: #7be75a;
+}
+
+/* Some left and right padding inside the container */
+.container {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+
+}
+
+.aboutUsTitle {
+  color: #333333;
+  font-size: 15px;
+}
+
+.aboutSubTitle {
+  color: #333333;
+}
+
+.aboutUs{
+  border-radius: 15px;  
+}
+
+#aboutTitle{
   text-align: center;
+  color: #7be75a;
+
+}
+#name{
   font-size: 20px;
-  letter-spacing: 1px;
-	font-family: 'arial', serif;
-  color: #FFE6D7; 
-  padding: 10px 0;
-	background-color: rgba(34, 120, 143, 0.2);
+}
+
+/*Account Page*/
+#accntTitle{
+  text-align: center;
+  color: #7be75a;
+
+}
+
+#accountDiv
+{
+	color: #ffffff;
+	background-color: rgba(31, 120, 58, 0.75);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 60%;
+  left: 50%;
+  border-radius: 15px;
   backdrop-filter: blur(5px);
   border: 2px solid rgba(255,255,255,0.1);
-	box-shadow: 0 0 40px rgba(8,7,16,0.6);
-	width: 50%;
-	place-self: center;
-	border-radius: 60px;
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 0px 35px 35px 35px;
+	
+	width: 30%;
+	display: inline-block;
 }
 
-.grid-item img {
-  width: 100px;
-  height: auto;
-  opacity: 90%;
-	border-radius:50px;
-	border: 2px solid rgba(255,255,255,0.1);
-	box-shadow: 0 0 40px rgba(8,7,16,0.6);
+#accntRow1{
+  margin-top: 5px;
+  padding-left: 100px;
+}
+
+#accntRow2{
+  margin-top: 5px;
+  padding-left: 95px;
+}
+
+#accntInputSpan {
+  padding-left: 25px;
+}
+
+#accntGoals{
+  margin-top: 5px;
+}
+
+/*Diary Page*/
+.diaryWrap{
+  background-color: #444444;
+  padding: 2%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5%;
+  overflow-y: auto;
+  box-shadow: 0px 5px 7px black;
+  
+  border-radius: 15px;
+}
+
+.diaryHeader{
+  text-align: center;
+  color: #7be75a;
+}
+
+.diaryInput{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #96ff76;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+}
+
+.diaryItem{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.diaryItem label{
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:#75c85c;
+}
+
+.diaryItem input{
+  padding: 10px;
+  border: none;
+  width: 350px;
+}
+
+.clearBtn{
+  float: right;
+  background-color: #ff7676;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 60px;
+  padding: 10px;
+  margin-right: 5px;
+  
+}
+
+.clearBtn:hover{
+  background-color: #c55252;
+  text-decoration: underline;
+}
+
+.addFoodBtn{
+  background-color: #96ff76;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 75px;
+  margin-top: 25px;
+  padding: 10px;
+
+}
+
+.addFoodBtn:hover{
+  background-color: #75c85c;
+  text-decoration: underline;
+}
+
+.secondaryBtn{
+  background-color: #96ff76;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.secondaryBtn:hover{
+  background-color: #75c85c;
+  text-decoration: underline;
+}
+
+.diaryBtnArea{
+  margin-bottom: 10px;
+}
+
+.foodList{
+  display: flex;
+  flex-direction: column;
+}
+
+.foodListItem{
+  background-color: #555555;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  
+
+}
+
+.foodListHeader{
+  background-color: #75c85c;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
 }

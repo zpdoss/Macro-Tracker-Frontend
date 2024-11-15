@@ -15,27 +15,31 @@ function Account()
 
     return(
         <>
-            <h2>This Is the Account Page</h2>
-            <span id="inner-title">Please Enter Info</span><br />
+            <h2 id="accntTitle">Account Page</h2>
 
-                <label htmlFor="Height">How tall are you in inches?</label><br />
-                <input type="text" id="Height" placeholder="72" /><br />
+            <div id="accountDiv">
+                
+                <h3 id="accntGoals">Set your goals here:</h3>
+                <label htmlFor="Height">Calories:</label><span id="accntRow1">
+                <label htmlFor="Weight">Protien(g):</label>
+                </span><br/>
 
-                <label htmlFor="Weight">How much do you weigh(lbs)?</label><br />
-                <input type="text" id="Weight" placeholder="250" /><br />
+                <input type="text" id="registerInput" placeholder="72" /><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="250" /></span><br />
 
-                <label htmlFor="Age">Whats your age?</label><br />
-                <input type="text" id="Age" placeholder="21" /><br />
+                <label htmlFor="Age">Carbs(g):</label><span id="accntRow2">
+                <label htmlFor="Sex">Fats(g):</label></span><br />
 
-                <label htmlFor="Sex">What is your Sex?</label><br />
-                <input type="text" id="Sex" placeholder="Male" /><br />
+                <input type="text" id="registerInput" placeholder="21" /><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="Male" /></span><br />
 
-                <input type="submit" id="InfoEnter" className="buttons" value = "Register Info"
+                <input type="submit" id="loginButtons" className="buttons" value = "Save"
                 onClick={enterInfo} />
                 <span id="InfoRestult"></span>
 
-                <input type="submit" id="PassReset" className="buttons" value = "Reset Password"
+                <input type="submit" id="loginButtons" className="buttons" value = "Reset Password"
                 onClick={resetPass} />
+            </div>
         </>
     );
 };
