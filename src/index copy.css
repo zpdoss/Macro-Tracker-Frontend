@@ -42,7 +42,7 @@
 	background-color: rgba(31, 120, 58, 0.75);
   position: absolute;
   transform: translate(-50%,-50%);
-  top: 50%;
+  top: 55%;
   left: 50%;
   border-radius: 15px;
   backdrop-filter: blur(5px);
