@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Account()
 {
@@ -7,8 +7,18 @@ function Account()
     const [protein,setProtein] = React.useState('');
     const [carbs,setCarbs] = React.useState('');
     const [fats,setFats] = React.useState('');
+    const [userId, setUserId] = useState('');
 
-    const userId = localStorage.getItem('id');
+    useEffect(() => {
+        // Parse user_data array from local storage
+        const userDataString = localStorage.getItem('user_data');
+        if (userDataString) {
+            const userDataArray = JSON.parse(userDataString);
+            if (userDataArray && userDataArray.id) {
+                setUserId(userDataArray.id); // Set the userId from user_data
+            }
+        }
+    }, []);
 
     function handleSetCalories( e: any ) : void
     {
@@ -35,9 +45,18 @@ function Account()
         event.preventDefault();
         //alert('Button Test - Info should now be saved');
 
-        var obj = {_id: userId,
-            cal: calories, carb: carbs,
-            prot: protein, fat: fats};
+        const obj = {
+            userId, 
+            cal: Number(calories),
+            carb: Number(carbs),
+            prot: Number(protein),
+            fat: Number(fats)
+        };
+
+        // Console log user information
+        console.log("User ID:", userId);
+        console.log("User Health Information:", obj);
+
         var js = JSON.stringify(obj);
 
         try
