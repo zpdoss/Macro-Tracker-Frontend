@@ -60,11 +60,9 @@ function Register()
             if(res.success){
                 setMessage('');
 
-                // store data locally for other apis
-                localStorage.setItem("firstName", firstName);
-                localStorage.setItem("lastName", lastName);
-                localStorage.setItem("email", email);
-                localStorage.setItem("id", res.id);
+                const { firstName, lastName, email, _id } = res.user;
+                const user = { firstName, lastName, email, id: _id };
+                localStorage.setItem('user_data', JSON.stringify(user));
 
                 window.location.href ='/Verify'
             }

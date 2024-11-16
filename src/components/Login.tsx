@@ -29,7 +29,8 @@ function Login()
             }
             else
             {
-                var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
+                const { firstName, lastName, email, _id } = res.user;
+                const user = { firstName, lastName, email, id: _id };
                 localStorage.setItem('user_data', JSON.stringify(user));
 
                 setMessage('');
