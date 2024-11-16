@@ -103,14 +103,14 @@ function Account()
                 <label htmlFor="Weight">Protien(g):</label>
                 </span><br/>
 
-                <input type="text" id="registerInput" placeholder="72" onChange={handleSetCalories}/><span id="accntInputSpan">
-                <input type="text" id="registerInput" placeholder="250" onChange={handleSetProtein}/></span><br />
+                <input type="text" id="registerInput" placeholder="2400" onChange={handleSetCalories}/><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="200" onChange={handleSetProtein}/></span><br />
 
                 <label htmlFor="Age">Carbs(g):</label><span id="accntRow2">
                 <label htmlFor="Sex">Fats(g):</label></span><br />
 
-                <input type="text" id="registerInput" placeholder="21" onChange={handleSetCarbs}/><span id="accntInputSpan">
-                <input type="text" id="registerInput" placeholder="Male" onChange={handleSetFats}/></span><br />
+                <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats}/></span><br />
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Save"
                 onClick={enterInfo} />
