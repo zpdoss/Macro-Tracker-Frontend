@@ -78,8 +78,7 @@ function Recipes()
                             <div onClick={toggleFoodModal} >
                                 <h3 className="customFoodName">Gyoza (placeholder)</h3>
                                 <p className="customFoodCals">Calories: 150 (placeholder)</p> 
-                                <button className="editBtn">Edit</button>
-                                <button className="listBtn">Delete</button>          
+                                     
                             
                                 {foodModal && (
                                     <div className="modal">
@@ -102,6 +101,10 @@ function Recipes()
                                             <button className="modalClose" onClick={toggleFoodModal}>
                                             CLOSE
                                             </button>
+                                            
+                                            <button className="editBtn">Edit</button>
+                                            <button onClick={toggleFoodModal} className="toDiaryBtn">Add to Diary</button>  
+                                            
 
                                         </div>
                                     </div>
@@ -109,7 +112,7 @@ function Recipes()
                             </div>
 
                             <div>
-                                <button className="toDiaryBtn">Add to Diary</button>   
+                                <button className="listBtn">Delete</button>  
                             </div>
                         </div>
                         
@@ -122,4 +125,4 @@ function Recipes()
         </>
     );
 };
-export default Recipes;
+export default Recipes;   

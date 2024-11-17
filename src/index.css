@@ -217,7 +217,7 @@ body {
   .column {
     width: 100%;
     display: block;
-    background-color: #7be75a;
+    background-color: #75c85c;
   }
 }
 
@@ -226,7 +226,7 @@ body {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 175px;
   border-radius: 15px;
-  background-color: #7be75a;
+  background-color: #75c85c;
 }
 
 /* Some left and right padding inside the container */
@@ -243,7 +243,7 @@ body {
 }
 
 .aboutUsTitle {
-  color: #333333;
+  color: #222222;
   font-size: 15px;
 }
 
@@ -440,6 +440,7 @@ body {
   margin-left: 10px;
   border-radius: 10px;
   cursor: pointer;
+  color:#c7ffb6;
 }
 
 .FoodName:hover{
@@ -450,6 +451,7 @@ body {
   font-size: 14px;
   margin-top: 0px;
   margin-left: 10px;
+  color:#d9ffcd;
 }
 
 .diaryDeleteBtn{
@@ -459,7 +461,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 68px;
+  width: 85px;
   padding: 10px;
   margin-right: 5px;
   height: 55px;
@@ -476,44 +478,8 @@ body {
 
 /*Custom Foods*/
 .listBtn{
-  float: left;
+  float: right;
   background-color: #ff7676;
-  color: #333333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 68px;
-  padding: 10px;
-  margin-left: 5px;
-  height: fit-content;
-}
-
-.listBtn:hover{
-  background-color: #c55252;
-  text-decoration: underline;
-}
-
-.editBtn{
-  float: left;
-  background-color: #e5e5e5;
-  color: #333333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 68px;
-  padding: 10px;
-  margin-left: 5px;
-  height: fit-content;
-}
-
-.editBtn:hover{
-  background-color: #d4d4d4;
-  text-decoration: underline;
-}
-
-.toDiaryBtn{
-  float: left;
-  background-color: #96ff76;
   color: #333333;
   border: none;
   border-radius: 5px;
@@ -524,8 +490,43 @@ body {
   height: 55px;
 }
 
+.listBtn:hover{
+  background-color: #c55252;
+  text-decoration: underline;
+}
+
+.editBtn{
+  background-color: #F5F5DC;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 45%;
+  padding: 10px;
+  margin-right: 10%;
+  margin-top: 10px;
+  height: fit-content;
+}
+
+.editBtn:hover{
+  background-color: #fcfcd9;
+  text-decoration: underline;
+}
+
+.toDiaryBtn{
+  background-color: #555555;
+  color: #96ff76;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 45%;
+  padding: 10px;
+  margin-top: 10px;
+  height: fit-content;
+}
+
 .toDiaryBtn:hover{
-  background-color: #75c85c;
+  background-color: #666666;
   text-decoration: underline;
 }
 
@@ -548,12 +549,14 @@ body {
   margin-left: 10px;
   border-radius: 10px;
   cursor: pointer;
+  color:#c7ffb6;
 }
 
 .customFoodCals{
   font-size: 14px;
   margin-top: 0px;
   margin-left: 10px;
+  color:#d9ffcd;
 }
 
 
@@ -640,6 +643,6 @@ body {
 }
 
 .modalSubHeader{
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   padding-bottom: 0px;
 }

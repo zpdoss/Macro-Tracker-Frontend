@@ -16,7 +16,6 @@ const NavBar: React.FC = () =>
                 <CustomLink to="/Recipes">Custom Foods</CustomLink>
                 <CustomLink to="/Account">Account</CustomLink>
                 <CustomLink to="/AboutUs">About Us</CustomLink>
-                <CustomLink to="/Calendar">Calendar</CustomLink>
 
             </ul>
         </nav> 
