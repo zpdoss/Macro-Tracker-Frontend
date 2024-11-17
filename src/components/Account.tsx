@@ -8,6 +8,7 @@ function Account()
     const [carbs,setCarbs] = React.useState('');
     const [fats,setFats] = React.useState('');
     const [userId, setUserId] = useState('');
+    //const [isEditing, setIsEditing] = useState(true); // Toggle between edit/view mode
 
     useEffect(() => {
         // Parse user_data array from local storage
@@ -69,9 +70,49 @@ function Account()
 
             if(res.success){
                 setMessage('Health info saved\n');
+                await displayUserHealth();
             }
             else if(res.message === "no duplicate UserHealth"){
                 setMessage("No duplicate health info\n");
+            }
+            else{
+                setMessage(res.message || "An error occurred sending the email.");
+            }
+
+        }
+        catch(error:any)
+        {
+            alert(error.toString());
+            return;
+        }
+    }
+
+    async function displayUserHealth() : Promise<void>
+    {
+        try
+        {
+            //const obj = {userId};
+            //var js = JSON.stringify(obj);
+
+            console.log("USER ID FOR DISPLAY IS: ", userId);
+
+
+            const response = await fetch('http://COP4331-t23.xyz:5079/api/getuserhealth/${userId}',
+                {method:'GET', headers:{'Content-Type':'application/json'}}
+            );
+
+            var res = JSON.parse(await response.text());
+            
+
+            if(res.success){
+                console.log("Parsed UserHealth data:", res.UserHealth);
+                //console.log(res.UserHealth.cal);
+                //console.log(res.UserHealth.prot);
+                //console.log(res.UserHealth.carb);
+                //console.log(res.UserHealth.fat);
+            }
+            else if(res.message === "userId format doesn't conform with schema"){
+                setMessage("userId format doesn't conform with schema\n");
             }
             else{
                 setMessage(res.message || "An error occurred sending the email.");
@@ -99,15 +140,15 @@ function Account()
             <div id="accountDiv">
                 
                 <h3 id="accntGoals">Set your goals here:</h3>
-                <label htmlFor="Height">Calories:</label><span id="accntRow1">
-                <label htmlFor="Weight">Protien(g):</label>
+                <label htmlFor="Calories">Calories:</label><span id="accntRow1">
+                <label htmlFor="Protein">Protein(g):</label>
                 </span><br/>
 
                 <input type="text" id="registerInput" placeholder="2400" onChange={handleSetCalories}/><span id="accntInputSpan">
                 <input type="text" id="registerInput" placeholder="200" onChange={handleSetProtein}/></span><br />
 
-                <label htmlFor="Age">Carbs(g):</label><span id="accntRow2">
-                <label htmlFor="Sex">Fats(g):</label></span><br />
+                <label htmlFor="Carbs">Carbs(g):</label><span id="accntRow2">
+                <label htmlFor="Fats">Fats(g):</label></span><br />
 
                 <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
                 <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats}/></span><br />
