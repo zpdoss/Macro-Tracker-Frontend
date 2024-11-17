@@ -141,22 +141,24 @@ function Account()
             <div id="accountDiv">
                 
                 <h3 id="accntGoals">Set your goals here:</h3>
-                <label htmlFor="Calories">Calories:</label><span id="accntRow1">
+                <label id="accntRow1" htmlFor="Calories">Calories:</label>
                 <label htmlFor="Protein">Protein(g):</label>
-                </span><br/>
+                <br/>
 
-                <input type="text" id="registerInput" placeholder="2400" onChange={handleSetCalories}/><span id="accntInputSpan">
-                <input type="text" id="registerInput" placeholder="200" onChange={handleSetProtein}/></span><br />
+                <input type="text" id="accntInput" placeholder="2400" onChange={handleSetCalories}/><span id="accntInputSpan">
+                <input type="text" id="accntInput" placeholder="200" onChange={handleSetProtein}/></span><br />
 
-                <label htmlFor="Carbs">Carbs(g):</label><span id="accntRow2">
-                <label htmlFor="Fats">Fats(g):</label></span><br />
+                <label id="accntRow2" htmlFor="Carbs">Carbs(g):</label>
+                <label htmlFor="Fats">Fats(g):</label>
+                <br />
 
-                <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
-                <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats}/></span><br />
+                <input type="text" id="accntInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
+                <input type="text" id="accntInput" placeholder="70" onChange={handleSetFats}/></span><br />
+
+                <span id="InfoRestult">{message}</span><br/>
 
                 <input type="submit" id="accntButtons" className="buttons" value = "Save"
                 onClick={enterInfo} />
-                <span id="InfoRestult">{message}</span>
 
                 <input type="submit" id="accntButtons" className="buttons" value = "Edit" onClick={enterInfo}/>
 
