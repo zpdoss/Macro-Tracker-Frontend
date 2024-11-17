@@ -97,7 +97,7 @@ function Account()
             console.log("USER ID FOR DISPLAY IS: ", userId);
 
 
-            const response = await fetch('http://COP4331-t23.xyz:5079/api/getuserhealth/${userId}',
+            const response = await fetch(`http://COP4331-t23.xyz:5079/api/getuserhealth/${userId}`,
                 {method:'GET', headers:{'Content-Type':'application/json'}}
             );
 
