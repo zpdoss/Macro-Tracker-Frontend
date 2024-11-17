@@ -13,6 +13,11 @@ function Diary()
         setMacroModal(!macroModal)
     }
 
+    const [addFoodModal, setAddFoodModal] = useState(false);
+    const toggleAddFoodModal = () => {
+        setAddFoodModal(!addFoodModal)
+    }
+
     return(
         <>
             <div className="diary">
@@ -22,7 +27,7 @@ function Diary()
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Food Database:</label>
-                            <input type="text" placeholder="Apple"/>
+                            <input className="search" type="text" placeholder="Apple"/>
                         </div>
 
                         <div className="diaryItem">
@@ -65,9 +70,9 @@ function Diary()
                         )}
 
 
-                        <button onClick={toggleFoodModal} className="secondaryBtn">Add Custom Food</button>
+                        <button onClick={toggleAddFoodModal} className="secondaryBtn">Add Custom Food</button>
                         
-                        {foodModal && (
+                        {addFoodModal && (
                             <div className="modal">
                                 <div onClick={toggleFoodModal} className="overlay"></div>
                                 <div className="modal-content">
@@ -89,35 +94,56 @@ function Diary()
                                     <input type="text" id="modalInput" placeholder="15" /><span id="modalInputSpan">
                                     <input type="text" id="modalInput" placeholder="25" /></span><br />
 
-                                    <button className="modalClose" onClick={toggleFoodModal}>
+                                    <button className="modalClose" onClick={toggleAddFoodModal}>
                                     CLOSE
                                     </button>
 
-                                    <button className="modalFoodBtn" onClick={toggleFoodModal}>
+                                    <button className="modalFoodBtn" onClick={toggleAddFoodModal}>
                                         Add Custom Food
                                     </button>
                                 </div>
                             </div>
                         )}
 
+                        <button className="clearBtn">Clear Diary</button>
                     </div>
 
                     <div className="foodList">
-                        <div className="foodListHeader">
-                            <h3>Foods</h3>
-                            <p>Calories</p>
-                            <p>Protien(g)</p>
-                            <p>Carbs(g)</p>
-                            <p>Fat(g)</p>
-                            <button className="clearBtn">Clear</button>
-                        </div>
                         <div className="foodListItem">
-                            <span><h3>apple</h3></span>
-                            <span><p>100</p></span>
-                            <span><p>10</p></span>
-                            <span><p>20</p></span>
-                            <span><p>5</p></span>
-                            <button className="clearBtn">Delete</button>
+                            <div onClick={toggleFoodModal} >
+                                <h3 className="FoodName">Apple (placeholder)</h3>
+                                <p className="FoodCals">Calories: 10(placeholder)</p>                          
+                            
+                                {foodModal && (
+                                    <div className="modal">
+                                        <div onClick={toggleFoodModal} className="overlay"></div>
+                                        <div className="modal-content">
+                                        <h2 className="modalHeader">*Custom Food Name*</h2>
+                                            
+                                            <h3 className="modalSubHeader">Calories:</h3>
+                                            <label htmlFor="Calories">*display cals*</label><br/>
+                                        
+                                            <h3 className="modalSubHeader">Protien:</h3>
+                                            <label htmlFor="Pro">*display pro*</label><br/>
+
+                                            <h3 className="modalSubHeader">Carbohydrates:</h3>
+                                            <label htmlFor="Carb">*display carb*</label><br/>
+
+                                            <h3 className="modalSubHeader">Fats:</h3>
+                                            <label htmlFor="Fat">*display fat*</label><br/>
+
+                                            <button className="modalClose" onClick={toggleFoodModal}>
+                                            CLOSE
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div>
+                                <button className="diaryDeleteBtn">Delete</button>   
+                            </div>
                         </div>
                     </div>
                 </div>

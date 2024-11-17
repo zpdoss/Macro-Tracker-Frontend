@@ -112,9 +112,13 @@ function Account()
                 <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
                 <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats}/></span><br />
 
-                <input type="submit" id="loginButtons" className="buttons" value = "Save"
+                <input type="submit" id="accntButtons" className="buttons" value = "Save"
                 onClick={enterInfo} />
                 <span id="InfoRestult">{message}</span>
+
+                <input type="submit" id="accntButtons" className="buttons" value = "Edit" onClick={enterInfo}/>
+
+                <input type="submit" id="accntButtons" className="buttons" value = "Delete" onClick={enterInfo}/>
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Reset Password"
                 onClick={resetPass} />

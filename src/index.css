@@ -307,6 +307,18 @@ body {
   margin-top: 5px;
 }
 
+#accntButtons{
+  margin-top: 10px;
+  width: 33.3%;
+  background-color: #ffffff;
+  color: #080710;
+  padding: 15px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 /*Diary Page*/
 .diaryWrap{
   background-color: #444444;
@@ -417,25 +429,30 @@ body {
   background-color: #555555;
   display: flex;
   justify-content: space-between;
-  padding: 25px;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-bottom: 10px;
   
 }
-
-.foodListHeader{
-  background-color: #75c85c;
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  
+.FoodName{
+  font-size: 20px;
+  margin: 0px;
+  margin-left: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-/*Custom Foods*/
-.listBtn{
+.FoodName:hover{
+  background-color: #666666;
+}
+
+.FoodCals{
+  font-size: 14px;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.diaryDeleteBtn{
   float: right;
   background-color: #ff7676;
   color: #333333;
@@ -445,11 +462,70 @@ body {
   width: 68px;
   padding: 10px;
   margin-right: 5px;
-  height: 50px;
+  height: 55px;
+}
+
+.diaryDeleteBtn:hover{
+  background-color: #c55252;
+  text-decoration: underline;
+}
+
+.search{
+  border-radius: 5px;
+}
+
+/*Custom Foods*/
+.listBtn{
+  float: left;
+  background-color: #ff7676;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 68px;
+  padding: 10px;
+  margin-left: 5px;
+  height: fit-content;
 }
 
 .listBtn:hover{
   background-color: #c55252;
+  text-decoration: underline;
+}
+
+.editBtn{
+  float: left;
+  background-color: #e5e5e5;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 68px;
+  padding: 10px;
+  margin-left: 5px;
+  height: fit-content;
+}
+
+.editBtn:hover{
+  background-color: #d4d4d4;
+  text-decoration: underline;
+}
+
+.toDiaryBtn{
+  float: left;
+  background-color: #96ff76;
+  color: #333333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 140px;
+  padding: 10px;
+  margin-right: 5px;
+  height: 55px;
+}
+
+.toDiaryBtn:hover{
+  background-color: #75c85c;
   text-decoration: underline;
 }
 

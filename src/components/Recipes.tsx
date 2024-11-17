@@ -9,9 +9,9 @@ function Recipes()
         setFoodModal(!foodModal)
     }
 
-    const [macroModal, setMacroModal] = useState(false);
-    const toggleMacroModal = () => {
-        setMacroModal(!macroModal)
+    const [addFoodModal, setAddFoodModal] = useState(false);
+    const toggleAddFoodModal = () => {
+        setAddFoodModal(!addFoodModal)
     }
 
     return(
@@ -23,7 +23,7 @@ function Recipes()
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Custom Foods:</label>
-                            <input type="text" placeholder="Gyoza"/>
+                            <input className="search" type="text" placeholder="Gyoza"/>
                         </div>
 
                         <div className="diaryItem">
@@ -34,13 +34,13 @@ function Recipes()
 
                     <div className="diaryBtnArea">
 
-                        <button onClick={toggleFoodModal} className="secondaryBtn">New Custom Food</button>
+                        <button onClick={toggleAddFoodModal} className="secondaryBtn">New Custom Food</button>
                         
                         <button className="clearBtn">Clear Custom Foods</button>
                         
-                        {foodModal && (
+                        {addFoodModal && (
                             <div className="modal">
-                                <div onClick={toggleFoodModal} className="overlay"></div>
+                                <div onClick={toggleAddFoodModal} className="overlay"></div>
                                 <div className="modal-content">
                                     <h2>Add Custom Food Here:</h2>
                                     <label htmlFor="foodName">Custom Food:</label><br />
@@ -60,11 +60,11 @@ function Recipes()
                                     <input type="text" id="modalInput" placeholder="15" /><span id="modalInputSpan">
                                     <input type="text" id="modalInput" placeholder="25" /></span><br />
 
-                                    <button className="modalClose" onClick={toggleFoodModal}>
+                                    <button className="modalClose" onClick={toggleAddFoodModal}>
                                     CLOSE
                                     </button>
 
-                                    <button className="modalFoodBtn" onClick={toggleFoodModal}>
+                                    <button className="modalFoodBtn" onClick={toggleAddFoodModal}>
                                         Add Custom Food
                                     </button>
                                 </div>
@@ -75,13 +75,15 @@ function Recipes()
 
                     <div className="customFoodList">
                         <div className="customListItem">
-                            <div onClick={toggleMacroModal} >
+                            <div onClick={toggleFoodModal} >
                                 <h3 className="customFoodName">Gyoza (placeholder)</h3>
-                                <p className="customFoodCals">Calories: 150 (placeholder)</p>                          
+                                <p className="customFoodCals">Calories: 150 (placeholder)</p> 
+                                <button className="editBtn">Edit</button>
+                                <button className="listBtn">Delete</button>          
                             
-                                {macroModal && (
+                                {foodModal && (
                                     <div className="modal">
-                                        <div onClick={toggleMacroModal} className="overlay"></div>
+                                        <div onClick={toggleFoodModal} className="overlay"></div>
                                         <div className="modal-content">
                                         <h2 className="modalHeader">*Custom Food Name*</h2>
                                             
@@ -97,7 +99,7 @@ function Recipes()
                                             <h3 className="modalSubHeader">Fats:</h3>
                                             <label htmlFor="Fat">*display fat*</label><br/>
 
-                                            <button className="modalClose" onClick={toggleMacroModal}>
+                                            <button className="modalClose" onClick={toggleFoodModal}>
                                             CLOSE
                                             </button>
 
@@ -107,10 +109,7 @@ function Recipes()
                             </div>
 
                             <div>
-                                <button className="listBtn"></button>
-                                <button className="listBtn">Edit</button>
-                                <button className="listBtn">Delete</button>
-                                
+                                <button className="toDiaryBtn">Add to Diary</button>   
                             </div>
                         </div>
                         
