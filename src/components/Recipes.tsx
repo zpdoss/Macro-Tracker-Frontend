@@ -1,66 +1,70 @@
-import React, {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
-
-function Recipes()
-{
-    //const [message,setMessage] = useState('');
-    const [mealName,setMealName] = React.useState('');
-    const [calories,setCalories] = React.useState('');
-    const [protein,setProtein] = React.useState('');
-    const [carbs,setCarbs] = React.useState('');
-    const [fats,setFats] = React.useState('');
+function Recipes() {
+    const [mealName, setMealName] = useState('');
+    const [meals, setMeals] = useState<any[]>([]); // State to store meals
+    const [calories, setCalories] = useState('');
+    const [protein, setProtein] = useState('');
+    const [carbs, setCarbs] = useState('');
+    const [fats, setFats] = useState('');
     const [userId, setUserId] = useState('');
+    const [foodModal, setFoodModal] = useState<any>(null); // Store the specific meal data for the modal
+    const [addFoodModal, setAddFoodModal] = useState(false);
 
+    // Effect to get user data from localStorage
     useEffect(() => {
-        // Parse user_data array from local storage
         const userDataString = localStorage.getItem('user_data');
         if (userDataString) {
             const userDataArray = JSON.parse(userDataString);
             if (userDataArray && userDataArray.id) {
                 setUserId(userDataArray.id); // Set the userId from user_data
+                searchMeal();
             }
         }
     }, []);
 
-    function handleSetMealName( e: any ) : void
-    {
-        setMealName( e.target.value );
+    // Handle input change for meal name search
+    const handleSetMealName = (e: any) => setMealName(e.target.value);
+
+    // Handle input changes for meal creation
+    const handleSetCalories = (e: any) => setCalories(e.target.value);
+    const handleSetProtein = (e: any) => setProtein(e.target.value);
+    const handleSetCarbs = (e: any) => setCarbs(e.target.value);
+    const handleSetFats = (e: any) => setFats(e.target.value);
+
+    // Toggle food modal
+    const toggleFoodModal = (meal: any) => setFoodModal(meal); // Pass the clicked meal as argument
+
+    // Toggle add food modal
+    const toggleAddFoodModal = () => setAddFoodModal(!addFoodModal);
+
+    // Search function to fetch meals from the API
+    async function searchMeal(): Promise<void> {
+        if (!mealName) {
+            setMeals([]); // Reset meals when search field is empty
+        }
+        try {
+            const response = await fetch(
+                'http://COP4331-t23.xyz:5079/api/searchmeal?userId=' + userId + '&search=' + mealName,
+                { method: 'GET', headers: { 'Content-Type': 'application/json' } }
+            );
+            const res = await response.json();
+
+            if (res.success && res.meals) {
+                setMeals(res.meals); // Set meals if found
+            } else {
+                console.log(res.message || "No meals found.");
+                setMeals([]); // Set empty meals array if no results
+            }
+        } catch (error: any) {
+            console.error("Error fetching meals:", error);
+            alert(error.toString());
+        }
     }
 
-    function handleSetCalories( e: any ) : void
-    {
-        setCalories( e.target.value );
-    }
-
-    function handleSetProtein( e: any ) : void
-    {
-        setProtein( e.target.value );
-    }
-
-    function handleSetCarbs( e: any ) : void
-    {
-        setCarbs( e.target.value );
-    }
-
-    function handleSetFats( e: any ) : void
-    {
-        setFats( e.target.value );
-    }
-    
-    const [foodModal, setFoodModal] = useState(false);
-    const toggleFoodModal = () => {
-        setFoodModal(!foodModal)
-    }
-
-    const [addFoodModal, setAddFoodModal] = useState(false);
-    const toggleAddFoodModal = () => {
-        setAddFoodModal(!addFoodModal)
-    }
-
-    async function enterMeal(event:any) : Promise<void>
-    {
+    // Function to handle new meal creation
+    async function enterMeal(event: any): Promise<void> {
         event.preventDefault();
-        //alert('Button Test - Info should now be saved');
 
         const obj = {
             userId,
@@ -77,27 +81,24 @@ function Recipes()
 
         var js = JSON.stringify(obj);
 
-        try
-        {
-            const response = await fetch('http://COP4331-t23.xyz:5079/api/createmeal',
-                {method:'POST',body:js,headers:{'Content-Type':'application/json'}}
-            );
+        try {
+            const response = await fetch('http://COP4331-t23.xyz:5079/api/createmeal', {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
 
             var res = JSON.parse(await response.text());
 
-            if(res.success){
+            if (res.success) {
                 console.log('Meal added successfully\n');
-            }
-            else if(res.message === "CastError"){
-                console.log("Doesn't macth schema format\n");
-            }
-            else{
-                console.log(res.message || "An error occurred sending the email.");
+            } else if (res.message === "CastError") {
+                console.log("Doesn't match schema format\n");
+            } else {
+                console.log(res.message || "An error occurred sending the meal.");
             }
 
-        }
-        catch(error:any)
-        {
+        } catch (error: any) {
             alert(error.toString());
             return;
         }
@@ -106,149 +107,138 @@ function Recipes()
         toggleAddFoodModal();
     }
 
-    async function searchMeal() : Promise<void>
-    {
-        //event.preventDefault();
-        //alert('Button Test - Info should now be saved');
-
-        // Console log user information
-        console.log("User ID:", userId);
-
-        try
-        {
-            const response = await fetch('http://COP4331-t23.xyz:5079/api/searchmeal',
-                {method:'GET',headers:{'Content-Type':'application/json'}}
+    // Function to delete a meal by its ID
+    const deleteMeal = async (mealId: string) => {
+        try {
+            const response = await fetch(
+                'http://COP4331-t23.xyz:5079/api/deletemeal/'+mealId,
+                { method: 'DELETE', headers: { 'Content-Type': 'application/json' } }
             );
 
-            var res = JSON.parse(await response.text());
+            const res = await response.json();
 
-            if(res.success){
-                console.log(res.message + '\n');
+            if (res.success) {
+                console.log("Meal deleted successfully.");
+                // Remove the deleted meal from the state
+                setMeals((prevMeals) => prevMeals.filter(meal => meal._id !== mealId));
+            } else {
+                console.log(res.message || "An error occurred while deleting the meal.");
             }
-            else if(res.message === "CastError"){
-                console.log("Doesn't macth schema format\n");
-            }
-            else{
-                console.log("An error occurred sending the email.");
-            }
-
-        }
-        catch(error:any)
-        {
+        } catch (error: any) {
             alert(error.toString());
-            return;
         }
-    }
+    };
 
-    return(
+    return (
         <>
             <div className="diary">
                 <h2 className="diaryHeader">Custom Foods</h2>
-            
+
                 <div className="diaryWrap">
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Custom Foods:</label>
-                            <input className="search" type="text" placeholder="Gyoza" onKeyUp={searchMeal}/>
+                            <input
+                                className="search"
+                                type="text"
+                                placeholder="Gyoza"
+                                onChange={handleSetMealName}
+                                onKeyUp={searchMeal}
+                            />
                         </div>
 
                         <div className="diaryItem">
                             <button type="button" className="addFoodBtn">Search</button>
                         </div>
-
                     </div>
 
                     <div className="diaryBtnArea">
-
                         <button onClick={toggleAddFoodModal} className="secondaryBtn">New Custom Food</button>
-                        
                         <button className="clearBtn">Clear Custom Foods</button>
-                        
-                        {addFoodModal && (
-                            <div className="modal">
-                                <div onClick={toggleAddFoodModal} className="overlay"></div>
-                                <div className="modal-content">
-                                    <h2>Add Custom Food Here:</h2>
-                                    <label htmlFor="foodName">Custom Food:</label><br />
-                                    <input type="text" id="loginInput" placeholder="Gyoza" onChange={handleSetMealName}></input>
-
-                                    <h2>Per Serving:</h2>
-                                    <label htmlFor="Calories">Calories:</label><span id="modalRow1">
-                                    <label htmlFor="Pro">Protien(g):</label>
-                                    </span><br/>
-
-                                    <input type="text" id="modalInput" placeholder="150" onChange={handleSetCalories}/><span id="modalInputSpan">
-                                    <input type="text" id="modalInput" placeholder="10" onChange={handleSetProtein}/></span><br />
-
-                                    <label htmlFor="Carb">Carbs(g):</label><span id="modalRow1">
-                                    <label htmlFor="Fat">Fats(g):</label></span><br />
-
-                                    <input type="text" id="modalInput" placeholder="15" onChange={handleSetCarbs}/><span id="modalInputSpan">
-                                    <input type="text" id="modalInput" placeholder="25" onChange={handleSetFats}/></span><br />
-
-                                    <button className="modalClose" onClick={toggleAddFoodModal}>
-                                    CLOSE
-                                    </button>
-
-                                    <button className="modalFoodBtn" onClick={enterMeal}>
-                                        Add Custom Food
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
                     </div>
 
+                    {/* Display meals */}
                     <div className="customFoodList">
-                        <div className="customListItem">
-                            <div onClick={toggleFoodModal} >
-                                <h3 className="customFoodName">Gyoza (placeholder)</h3>
-                                <p className="customFoodCals">Calories: 150 (placeholder)</p> 
-                                     
-                            
-                                {foodModal && (
-                                    <div className="modal">
-                                        <div onClick={toggleFoodModal} className="overlay"></div>
-                                        <div className="modal-content">
-                                        <h2 className="modalHeader">*Custom Food Name*</h2>
-                                            
-                                            <h3 className="modalSubHeader">Calories:</h3>
-                                            <label htmlFor="Calories">*display cals*</label><br/>
-                                        
-                                            <h3 className="modalSubHeader">Protien:</h3>
-                                            <label htmlFor="Pro">*display pro*</label><br/>
-
-                                            <h3 className="modalSubHeader">Carbohydrates:</h3>
-                                            <label htmlFor="Carb">*display carb*</label><br/>
-
-                                            <h3 className="modalSubHeader">Fats:</h3>
-                                            <label htmlFor="Fat">*display fat*</label><br/>
-
-                                            <button className="modalClose" onClick={toggleFoodModal}>
-                                            CLOSE
-                                            </button>
-                                            
-                                            <button className="editBtn">Edit</button>
-                                            <button onClick={toggleFoodModal} className="toDiaryBtn">Add to Diary</button>  
-                                            
-
-                                        </div>
+                        {meals.length > 0 ? (
+                            meals.map((meal, index) => (
+                                <div className="customListItem" key={index}>
+                                    <div onClick={() => toggleFoodModal(meal)}>
+                                        <h3 className="customFoodName">{meal.name}</h3>
+                                        <p className="customFoodCals">Calories: {meal.cal}</p>
                                     </div>
-                                )}
-                            </div>
 
-                            <div>
-                                <button className="listBtn">Delete</button>  
-                            </div>
-                        </div>
-                        
-                        
+                                    {/* Food Modal to display meal details */}
+                                    {foodModal && foodModal.name === meal.name && (
+                                        <div className="modal">
+                                            <div onClick={() => toggleFoodModal(null)} className="overlay"></div>
+                                            <div className="modal-content">
+                                                <h2 className="modalHeader">{meal.name}</h2>
+                                                <h3 className="modalSubHeader">Calories:</h3>
+                                                <label htmlFor="Calories">{meal.cal}</label><br />
+
+                                                <h3 className="modalSubHeader">Protein:</h3>
+                                                <label htmlFor="Pro">{meal.prot}</label><br />
+
+                                                <h3 className="modalSubHeader">Carbohydrates:</h3>
+                                                <label htmlFor="Carb">{meal.carb}</label><br />
+
+                                                <h3 className="modalSubHeader">Fats:</h3>
+                                                <label htmlFor="Fat">{meal.fat}</label><br />
+
+                                                <button className="modalClose" onClick={() => toggleFoodModal(null)}>CLOSE</button>
+                                                <button className="editBtn">Edit</button>
+                                                <button className="toDiaryBtn">Add to Diary</button>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <button className="listBtn" onClick={() => deleteMeal(meal._id)}>Delete</button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No meals found.</p> // Display message when no meals are available
+                        )}
                     </div>
                 </div>
             </div>
-            
 
+            {/* Modal for adding a new custom food */}
+            {addFoodModal && (
+                <div className="modal">
+                    <div onClick={toggleAddFoodModal} className="overlay"></div>
+                    <div className="modal-content">
+                        <h2>Add Custom Food Here:</h2>
+                        <label htmlFor="foodName">Custom Food:</label><br />
+                        <input type="text" id="loginInput" placeholder="Gyoza" onChange={handleSetMealName}></input>
+
+                        <h2>Per Serving:</h2>
+                        <label htmlFor="Calories">Calories:</label><span id="modalRow1">
+                        <label htmlFor="Pro">Protein(g):</label>
+                        </span><br />
+
+                        <input type="text" id="modalInput" placeholder="150" onChange={handleSetCalories}/><span id="modalInputSpan">
+                        <input type="text" id="modalInput" placeholder="10" onChange={handleSetProtein}/></span><br />
+
+                        <label htmlFor="Carb">Carbs(g):</label><span id="modalRow1">
+                        <label htmlFor="Fat">Fats(g):</label></span><br />
+
+                        <input type="text" id="modalInput" placeholder="15" onChange={handleSetCarbs}/><span id="modalInputSpan">
+                        <input type="text" id="modalInput" placeholder="25" onChange={handleSetFats}/></span><br />
+
+                        <button className="modalClose" onClick={toggleAddFoodModal}>
+                            CLOSE
+                        </button>
+
+                        <button className="modalFoodBtn" onClick={enterMeal}>
+                            Add Custom Food
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     );
-};
-export default Recipes;   
+}
+
+export default Recipes;
