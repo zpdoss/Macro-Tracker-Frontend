@@ -8,7 +8,10 @@ function Account()
     const [carbs,setCarbs] = React.useState('');
     const [fats,setFats] = React.useState('');
     const [userId, setUserId] = useState('');
+    //sets text fields as editable
     const [isEditable, setIsEditable] = useState(true);
+    //status of editing or not for edit button
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         // Parse user_data array from local storage
@@ -134,6 +137,91 @@ function Account()
         }
     }
 
+    async function updateInfo(event:any) : Promise<void>
+    {
+        event.preventDefault();
+        //alert('Button Test - Info should now be saved');
+
+        if (editing) {
+            const obj = {
+                userId,
+                cal: Number(calories),
+                carb: Number(carbs),
+                fat: Number(fats),
+                prot: Number(protein)
+            };
+            const js = JSON.stringify(obj);
+
+            try {
+                const response = await fetch('http://COP4331-t23.xyz:5079/api/updateuserhealth', {
+                    method: 'PUT',body: js,headers: { 'Content-Type': 'application/json' }
+                });
+                const res = JSON.parse(await response.text());
+
+                if (res.success) {
+                    setMessage('Health info updated\n');
+                    setEditing(false);
+                    setIsEditable(false);
+                } else if (res.message === "no duplicate UserHealth") {
+                    setMessage("No duplicate health info\n");
+                } else {
+                    setMessage(res.message || "An error occurred sending the email.");
+                }
+            } catch (error:any) {
+                alert(error.toString());
+                return;
+            }
+        } else {
+            setEditing(true);
+            setIsEditable(true);
+        }
+    }
+
+    async function deleteInfo(event: any) : Promise<void>
+    {
+        event.preventDefault();
+
+        try
+        {
+        //const obj = {userId};
+            //var js = JSON.stringify(obj);
+
+            console.log("USER ID FOR DISPLAY IS: ", userId);
+
+            const url = 'http://COP4331-t23.xyz:5079/api/deleteuserhealth/' + userId;
+            console.log("full api url: " + url);
+            const response = await fetch(`${url}`,
+                {method:'DELETE', headers:{'Content-Type':'application/json'}}
+            );
+
+            var res = JSON.parse(await response.text());
+            
+
+            if(res.success){
+                setCalories('');
+                setProtein('');
+                setCarbs('');
+                setFats('');
+                setIsEditable(true);
+                setMessage("Health info deleted");
+            }
+            else if(res.message === "userId format doesn't conform with schema"){
+                setMessage("userId format doesn't conform with schema\n");
+            }
+            else{
+                setMessage(res.message || "An error occurred sending the email.");
+            }
+
+        }
+        catch(error:any)
+        {
+            alert(error.toString());
+            return;
+        }
+    }
+
+
+
     function resetPass(event:any) : void
     {
         event.preventDefault();
@@ -166,9 +254,9 @@ function Account()
                 onClick={enterInfo} disabled={!isEditable}/>
                 <span id="InfoRestult">{message}</span>
 
-                <input type="submit" id="accntButtons" className="buttons" value = "Edit" onClick={enterInfo}/>
+                <input type="submit" id="accntButtons" className="buttons" value={editing ? "Done" : "Edit"} onClick={updateInfo}/>
 
-                <input type="submit" id="accntButtons" className="buttons" value = "Delete" onClick={enterInfo}/>
+                <input type="submit" id="accntButtons" className="buttons" value = "Delete" onClick={deleteInfo}/>
 
                 <input type="submit" id="loginButtons" className="buttons" value = "Reset Password"
                 onClick={resetPass} />
