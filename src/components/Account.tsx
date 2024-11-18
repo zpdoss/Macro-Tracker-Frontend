@@ -8,7 +8,7 @@ function Account()
     const [carbs,setCarbs] = React.useState('');
     const [fats,setFats] = React.useState('');
     const [userId, setUserId] = useState('');
-    //const [isEditing, setIsEditing] = useState(true); // Toggle between edit/view mode
+    const [isEditable, setIsEditable] = useState(true);
 
     useEffect(() => {
         // Parse user_data array from local storage
@@ -17,6 +17,7 @@ function Account()
             const userDataArray = JSON.parse(userDataString);
             if (userDataArray && userDataArray.id) {
                 setUserId(userDataArray.id); // Set the userId from user_data
+                displayUserHealth(userDataArray.id); // Call displayUserHealth with userId
             }
         }
     }, []);
@@ -87,16 +88,16 @@ function Account()
         }
     }
 
-    async function displayUserHealth() : Promise<void>
+    async function displayUserHealth(id = userId) : Promise<void>
     {
         try
         {
             //const obj = {userId};
             //var js = JSON.stringify(obj);
 
-            console.log("USER ID FOR DISPLAY IS: ", userId);
+            console.log("USER ID FOR DISPLAY IS: ", id);
 
-            const url = 'http://COP4331-t23.xyz:5079/api/getuserhealth/' + userId;
+            const url = 'http://COP4331-t23.xyz:5079/api/getuserhealth/' + id;
             console.log("full api url: " + url);
             const response = await fetch(`${url}`,
                 {method:'GET', headers:{'Content-Type':'application/json'}}
@@ -107,16 +108,22 @@ function Account()
 
             if(res.success){
                 console.log("Parsed UserHealth data:", res.UserHealth);
-                //console.log(res.UserHealth.cal);
-                //console.log(res.UserHealth.prot);
-                //console.log(res.UserHealth.carb);
-                //console.log(res.UserHealth.fat);
+                console.log(res.UserHealth.cal);
+                console.log(res.UserHealth.prot);
+                console.log(res.UserHealth.carb);
+                console.log(res.UserHealth.fat);
+
+                setCalories(res.UserHealth.cal);
+                setProtein(res.UserHealth.prot);
+                setCarbs(res.UserHealth.carb);
+                setFats(res.UserHealth.fat);
+                setIsEditable(false);
             }
             else if(res.message === "userId format doesn't conform with schema"){
                 setMessage("userId format doesn't conform with schema\n");
             }
             else{
-                setMessage(res.message || "An error occurred sending the email.");
+                console.log(res.message || "An error occurred sending the email.");
             }
 
         }
@@ -145,20 +152,19 @@ function Account()
                 <label htmlFor="Protein">Protein(g):</label>
                 <br/>
 
-                <input type="text" id="accntInput" placeholder="2400" onChange={handleSetCalories}/><span id="accntInputSpan">
-                <input type="text" id="accntInput" placeholder="200" onChange={handleSetProtein}/></span><br />
+                <input type="text" id="registerInput" placeholder="2400" onChange={handleSetCalories} disabled={!isEditable} value={calories}/><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="200" onChange={handleSetProtein} disabled={!isEditable} value={protein}/></span><br />
 
                 <label id="accntRow2" htmlFor="Carbs">Carbs(g):</label>
                 <label htmlFor="Fats">Fats(g):</label>
                 <br />
 
-                <input type="text" id="accntInput" placeholder="150" onChange={handleSetCarbs}/><span id="accntInputSpan">
-                <input type="text" id="accntInput" placeholder="70" onChange={handleSetFats}/></span><br />
-
-                <span id="InfoRestult">{message}</span><br/>
+                <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs} disabled={!isEditable} value={carbs}/><span id="accntInputSpan">
+                <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats} disabled={!isEditable} value={fats}/></span><br />
 
                 <input type="submit" id="accntButtons" className="buttons" value = "Save"
-                onClick={enterInfo} />
+                onClick={enterInfo} disabled={!isEditable}/>
+                <span id="InfoRestult">{message}</span>
 
                 <input type="submit" id="accntButtons" className="buttons" value = "Edit" onClick={enterInfo}/>
 
