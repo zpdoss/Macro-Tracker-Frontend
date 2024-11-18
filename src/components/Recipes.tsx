@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 
 function Recipes() {
     const [mealName, setMealName] = useState('');
-    const [meals, setMeals] = useState<any[]>([]); // State to store meals
+    const [meals, setMeals] = useState<any[]>([]);
     const [calories, setCalories] = useState('');
     const [protein, setProtein] = useState('');
     const [carbs, setCarbs] = useState('');
     const [fats, setFats] = useState('');
     const [userId, setUserId] = useState('');
-    const [foodModal, setFoodModal] = useState<any>(null); // Store the specific meal data for the modal
+    const [foodModal, setFoodModal] = useState<any>(null);
     const [addFoodModal, setAddFoodModal] = useState(false);
+    const [isEditing, setIsEditing] = useState(false); // State to track edit mode
 
     // Effect to get user data from localStorage
     useEffect(() => {
@@ -17,11 +18,17 @@ function Recipes() {
         if (userDataString) {
             const userDataArray = JSON.parse(userDataString);
             if (userDataArray && userDataArray.id) {
-                setUserId(userDataArray.id); // Set the userId from user_data
-                searchMeal();
+                setUserId(userDataArray.id);
             }
         }
     }, []);
+
+    useEffect(() => {
+        // Only call searchMeal after userId has been set
+        if (userId) {
+            searchMeal();
+        }
+    }, [userId]); // This will run only when userId is updated
 
     // Handle input change for meal name search
     const handleSetMealName = (e: any) => setMealName(e.target.value);
@@ -33,7 +40,10 @@ function Recipes() {
     const handleSetFats = (e: any) => setFats(e.target.value);
 
     // Toggle food modal
-    const toggleFoodModal = (meal: any) => setFoodModal(meal); // Pass the clicked meal as argument
+    const toggleFoodModal = (meal: any) => {
+        setFoodModal(meal);
+        setIsEditing(false); // Reset to non-editing mode when a new meal is clicked
+    };
 
     // Toggle add food modal
     const toggleAddFoodModal = () => setAddFoodModal(!addFoodModal);
@@ -45,16 +55,15 @@ function Recipes() {
         }
         try {
             const response = await fetch(
-                'http://COP4331-t23.xyz:5079/api/searchmeal?userId=' + userId + '&search=' + mealName,
+                `http://COP4331-t23.xyz:5079/api/searchmeal?userId=${userId}&search=${mealName}`,
                 { method: 'GET', headers: { 'Content-Type': 'application/json' } }
             );
             const res = await response.json();
-
             if (res.success && res.meals) {
-                setMeals(res.meals); // Set meals if found
+                setMeals(res.meals);
             } else {
                 console.log(res.message || "No meals found.");
-                setMeals([]); // Set empty meals array if no results
+                setMeals([]);
             }
         } catch (error: any) {
             console.error("Error fetching meals:", error);
@@ -65,7 +74,6 @@ function Recipes() {
     // Function to handle new meal creation
     async function enterMeal(event: any): Promise<void> {
         event.preventDefault();
-
         const obj = {
             userId,
             name: String(mealName),
@@ -74,52 +82,68 @@ function Recipes() {
             prot: Number(protein),
             fat: Number(fats)
         };
-
-        // Console log user information
-        console.log("User ID:", userId);
-        console.log("Meal Information:", obj);
-
-        var js = JSON.stringify(obj);
-
         try {
             const response = await fetch('http://COP4331-t23.xyz:5079/api/createmeal', {
                 method: 'POST',
-                body: js,
+                body: JSON.stringify(obj),
                 headers: { 'Content-Type': 'application/json' }
             });
-
-            var res = JSON.parse(await response.text());
-
+            const res = await response.json();
             if (res.success) {
                 console.log('Meal added successfully\n');
-            } else if (res.message === "CastError") {
-                console.log("Doesn't match schema format\n");
             } else {
                 console.log(res.message || "An error occurred sending the meal.");
             }
-
         } catch (error: any) {
             alert(error.toString());
             return;
         }
-
-        // Close the modal after submitting
         toggleAddFoodModal();
+    }
+
+    // Function to update a meal
+    async function updateMeal(mealId: string): Promise<void> {
+        const updatedMeal = {
+            name: mealName,
+            cal: calories,
+            prot: protein,
+            carb: carbs,
+            fat: fats
+        };
+        try {
+            const response = await fetch(`http://COP4331-t23.xyz:5079/api/updatemeal/${mealId}`, {
+                method: 'PUT',
+                body: JSON.stringify(updatedMeal),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const res = await response.json();
+            if (res.success) {
+                console.log("Meal updated successfully");
+                // Update the meal in the state after a successful update
+                setMeals((prevMeals) => 
+                    prevMeals.map((meal) => 
+                        meal._id === mealId ? { ...meal, ...updatedMeal } : meal
+                    )
+                );
+                setIsEditing(false); // Set to non-editing mode after update
+            } else {
+                console.log(res.message || "An error occurred updating the meal.");
+            }
+        } catch (error: any) {
+            alert(error.toString());
+        }
     }
 
     // Function to delete a meal by its ID
     const deleteMeal = async (mealId: string) => {
         try {
             const response = await fetch(
-                'http://COP4331-t23.xyz:5079/api/deletemeal/'+mealId,
+                `http://COP4331-t23.xyz:5079/api/deletemeal/${mealId}`,
                 { method: 'DELETE', headers: { 'Content-Type': 'application/json' } }
             );
-
             const res = await response.json();
-
             if (res.success) {
                 console.log("Meal deleted successfully.");
-                // Remove the deleted meal from the state
                 setMeals((prevMeals) => prevMeals.filter(meal => meal._id !== mealId));
             } else {
                 console.log(res.message || "An error occurred while deleting the meal.");
@@ -129,11 +153,20 @@ function Recipes() {
         }
     };
 
+    // Sync input fields with the selected meal in editing mode
+    const handleEditClick = (meal: any) => {
+        setMealName(meal.name);
+        setCalories(meal.cal);
+        setProtein(meal.prot);
+        setCarbs(meal.carb);
+        setFats(meal.fat);
+        setIsEditing(true);
+    };
+
     return (
         <>
             <div className="diary">
                 <h2 className="diaryHeader">Custom Foods</h2>
-
                 <div className="diaryWrap">
                     <div className="diaryInput">
                         <div className="diaryItem">
@@ -146,12 +179,10 @@ function Recipes() {
                                 onKeyUp={searchMeal}
                             />
                         </div>
-
                         <div className="diaryItem">
                             <button type="button" className="addFoodBtn">Search</button>
                         </div>
                     </div>
-
                     <div className="diaryBtnArea">
                         <button onClick={toggleAddFoodModal} className="secondaryBtn">New Custom Food</button>
                         <button className="clearBtn">Clear Custom Foods</button>
@@ -172,21 +203,86 @@ function Recipes() {
                                         <div className="modal">
                                             <div onClick={() => toggleFoodModal(null)} className="overlay"></div>
                                             <div className="modal-content">
-                                                <h2 className="modalHeader">{meal.name}</h2>
+                                                <h2 className="modalHeader">
+                                                    {isEditing ? (
+                                                        <input
+                                                            type="text"
+                                                            value={mealName}
+                                                            onChange={(e) => setMealName(e.target.value)}
+                                                        />
+                                                    ) : (
+                                                        meal.name
+                                                    )}
+                                                </h2>
+
                                                 <h3 className="modalSubHeader">Calories:</h3>
-                                                <label htmlFor="Calories">{meal.cal}</label><br />
+                                                {isEditing ? (
+                                                    <input
+                                                        type="text"
+                                                        value={calories}
+                                                        onChange={(e) => setCalories(e.target.value)}
+                                                    />
+                                                ) : (
+                                                    <span>{meal.cal}</span>
+                                                )}
+                                                <br />
 
                                                 <h3 className="modalSubHeader">Protein:</h3>
-                                                <label htmlFor="Pro">{meal.prot}</label><br />
+                                                {isEditing ? (
+                                                    <input
+                                                        type="text"
+                                                        value={protein}
+                                                        onChange={(e) => setProtein(e.target.value)}
+                                                    />
+                                                ) : (
+                                                    <span>{meal.prot}</span>
+                                                )}
+                                                <br />
 
                                                 <h3 className="modalSubHeader">Carbohydrates:</h3>
-                                                <label htmlFor="Carb">{meal.carb}</label><br />
+                                                {isEditing ? (
+                                                    <input
+                                                        type="text"
+                                                        value={carbs}
+                                                        onChange={(e) => setCarbs(e.target.value)}
+                                                    />
+                                                ) : (
+                                                    <span>{meal.carb}</span>
+                                                )}
+                                                <br />
 
                                                 <h3 className="modalSubHeader">Fats:</h3>
-                                                <label htmlFor="Fat">{meal.fat}</label><br />
+                                                {isEditing ? (
+                                                    <input
+                                                        type="text"
+                                                        value={fats}
+                                                        onChange={(e) => setFats(e.target.value)}
+                                                    />
+                                                ) : (
+                                                    <span>{meal.fat}</span>
+                                                )}
+                                                <br />
 
-                                                <button className="modalClose" onClick={() => toggleFoodModal(null)}>CLOSE</button>
-                                                <button className="editBtn">Edit</button>
+                                                <button
+                                                    className="modalClose"
+                                                    onClick={() => toggleFoodModal(null)}
+                                                >
+                                                    CLOSE
+                                                </button>
+
+                                                <button
+                                                    className="editBtn"
+                                                    onClick={() => {
+                                                        if (isEditing) {
+                                                            updateMeal(meal._id);
+                                                        } else {
+                                                            handleEditClick(meal);
+                                                        }
+                                                    }}
+                                                >
+                                                    {isEditing ? 'Done' : 'Edit'}
+                                                </button>
+
                                                 <button className="toDiaryBtn">Add to Diary</button>
                                             </div>
                                         </div>
@@ -198,7 +294,7 @@ function Recipes() {
                                 </div>
                             ))
                         ) : (
-                            <p>No meals found.</p> // Display message when no meals are available
+                            <p>No meals found.</p>
                         )}
                     </div>
                 </div>
