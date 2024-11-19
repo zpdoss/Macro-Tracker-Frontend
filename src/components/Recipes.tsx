@@ -154,6 +154,21 @@ function Recipes() {
         }
     };
 
+    const localStorageMeal = (meal: any) => {
+        setMealName(meal.name);
+        setCalories(meal.cal);
+        setProtein(meal.prot);
+        setCarbs(meal.carb);
+        setFats(meal.fat);
+
+        const user = { name: meal.name, cal: meal.cal, prot: meal.prot, carb: meal.carb, fat: meal.carb};
+        localStorage.setItem('user_meal', JSON.stringify(user));
+
+        localStorage.setItem('meal_status', "1")
+
+        window.location.href = '/Diary';
+    };
+
     // Sync input fields with the selected meal in editing mode
     const handleEditClick = (meal: any) => {
         setMealName(meal.name);
@@ -281,7 +296,7 @@ function Recipes() {
                                                     {isEditing ? 'Done' : 'Edit'}
                                                 </button>
 
-                                                <button className="toDiaryBtn">Add to Diary</button>
+                                                <button onClick={() => {localStorageMeal(meal)}} className="toDiaryBtn">Add to Diary</button>
                                             </div>
                                         </div>
                                     )}
