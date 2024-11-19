@@ -1,12 +1,12 @@
 //import "./NavBar.css"
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import React from 'react';
-
+import veggies from '../assets/veggies.png';
 
 const NavBar: React.FC = () =>
 {
     return(
-        <nav className="nav">
+        <nav className="nav" style={{ backgroundImage:`url(${veggies})`}}>
             <h1 id="siteTitle">
                 Di-orie
             </h1>

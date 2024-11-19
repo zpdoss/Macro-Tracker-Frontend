@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import kitchen from '../assets/kitchen.png';
 
 function Recipes() {
     const [mealName, setMealName] = useState('');
@@ -167,7 +168,7 @@ function Recipes() {
         <>
             <div className="diary">
                 <h2 className="diaryHeader">Custom Foods</h2>
-                <div className="diaryWrap">
+                <div className="diaryWrap" style={{ backgroundImage:`url(${kitchen})`, backgroundSize: "cover"}}>
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Custom Foods:</label>
@@ -179,13 +180,10 @@ function Recipes() {
                                 onKeyUp={searchMeal}
                             />
                         </div>
-                        <div className="diaryItem">
-                            <button type="button" className="addFoodBtn">Search</button>
-                        </div>
                     </div>
                     <div className="diaryBtnArea">
                         <button onClick={toggleAddFoodModal} className="secondaryBtn">New Custom Food</button>
-                        <button className="clearBtn">Clear Custom Foods</button>
+                        
                     </div>
 
                     {/* Display meals */}
@@ -227,7 +225,7 @@ function Recipes() {
                                                 )}
                                                 <br />
 
-                                                <h3 className="modalSubHeader">Protein:</h3>
+                                                <h3 className="modalSubHeader">Protein(g):</h3>
                                                 {isEditing ? (
                                                     <input
                                                         type="text"
@@ -239,7 +237,7 @@ function Recipes() {
                                                 )}
                                                 <br />
 
-                                                <h3 className="modalSubHeader">Carbohydrates:</h3>
+                                                <h3 className="modalSubHeader">Carbohydrates(g):</h3>
                                                 {isEditing ? (
                                                     <input
                                                         type="text"
@@ -251,7 +249,7 @@ function Recipes() {
                                                 )}
                                                 <br />
 
-                                                <h3 className="modalSubHeader">Fats:</h3>
+                                                <h3 className="modalSubHeader">Fats(g):</h3>
                                                 {isEditing ? (
                                                     <input
                                                         type="text"

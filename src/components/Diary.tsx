@@ -1,5 +1,7 @@
 //import addCustomFood from '../components/addCustomFood.tsx';
 import {useState, useEffect} from 'react';
+import food from '../assets/greyFood.png';
+
 
 function Diary()
 {
@@ -140,7 +142,7 @@ function Diary()
             <div className="diary">
                 <h2 className="diaryHeader">Welcome to your food diary</h2>
             
-                <div className="diaryWrap">
+                <div className="diaryWrap" style={{ backgroundImage:`url(${food})`}}>
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Food Database:</label>

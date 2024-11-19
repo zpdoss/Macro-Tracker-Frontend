@@ -243,12 +243,15 @@ body {
 }
 
 .aboutUsTitle {
-  color: #222222;
-  font-size: 15px;
+  color: #080710;
+  font-size: 20px;
+  font-weight: bold;
+  
 }
 
 .aboutSubTitle {
-  color: #333333;
+  color: #222222;
+  font-size: 15px;
 }
 
 .aboutUs{
@@ -259,9 +262,6 @@ body {
   text-align: center;
   color: #7be75a;
 
-}
-#name{
-  font-size: 20px;
 }
 
 /*Account Page*/
@@ -284,7 +284,7 @@ body {
   border: 2px solid rgba(255,255,255,0.1);
   box-shadow: 0 0 40px rgba(8,7,16,0.6);
   padding: 0px 35px 35px 35px;
-  width: 400px;
+	width: 400px;
 	display: inline-block;
 }
 
@@ -301,15 +301,16 @@ body {
   color: black;
 }
 
-#accntRow1{
+#accntRow1 {
   margin-top: 5px;
-  margin-right: 34%;
+  margin-right: 37%
 }
 
-#accntRow2{
+#accntRow2 {
   margin-top: 5px;
-  margin-right: 33%;
+  margin-right: 36%
 }
+
 
 #accntInputSpan {
   margin-left: 10%;
@@ -342,7 +343,6 @@ body {
   margin-top: 2.5%;
   overflow-y: auto;
   box-shadow: 0px 5px 7px black;
-  
   border-radius: 15px;
 }
 
@@ -369,7 +369,7 @@ body {
 .diaryItem label{
   font-weight: bold;
   margin-bottom: 10px;
-  color:#75c85c;
+  color:#000000;
 }
 
 .diaryItem input{
@@ -439,13 +439,13 @@ body {
 }
 
 .foodListItem{
-  background-color: #555555;
+  background-color: #96ff76;
   display: flex;
   justify-content: space-between;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-bottom: 10px;
-  
+  border-radius: 10px;
 }
 .FoodName{
   font-size: 20px;
@@ -453,18 +453,18 @@ body {
   margin-left: 10px;
   border-radius: 10px;
   cursor: pointer;
-  color:#c7ffb6;
+  color:#222222;
 }
 
 .FoodName:hover{
-  background-color: #666666;
+  background-color: #75c85c;
 }
 
 .FoodCals{
   font-size: 14px;
   margin-top: 0px;
   margin-left: 10px;
-  color:#d9ffcd;
+  color:#080710;
 }
 
 .diaryDeleteBtn{
@@ -497,7 +497,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 140px;
+  width: 70px;
   padding: 10px;
   margin-right: 5px;
   height: 55px;
@@ -554,6 +554,7 @@ body {
   padding-bottom: 5px;
   margin-bottom: 10px;
   justify-content:space-between;
+  border-radius: 10px;
 }
 
 .customFoodName{
@@ -572,6 +573,25 @@ body {
   color:#d9ffcd;
 }
 
+.customItem{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.customItem label{
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:#88e36c;
+  background-color: rgba(50, 50, 50, 0.75);
+  border-radius: 5px;
+}
+
+.customItem input{
+  padding: 10px;
+  border: none;
+  width: 350px;
+}
 
 /*Modals*/
 .modal, .overlay {

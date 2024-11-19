@@ -257,9 +257,10 @@ function Account()
                 <input type="text" id="registerInput" placeholder="150" onChange={handleSetCarbs} disabled={!isEditable} value={carbs}/><span id="accntInputSpan">
                 <input type="text" id="registerInput" placeholder="70" onChange={handleSetFats} disabled={!isEditable} value={fats}/></span><br />
 
+                <span id="InfoRestult">{message}</span><br/>
+
                 <input type="submit" id="accntButtons" className="buttons" value = "Save"
                 onClick={enterInfo} disabled={!isEditable}/>
-                <span id="InfoRestult">{message}</span>
 
                 <input type="submit" id="accntButtons" className="buttons" value={editing ? "Done" : "Edit"} onClick={updateInfo}/>
 
