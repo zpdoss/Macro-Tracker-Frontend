@@ -1,8 +1,56 @@
 //import addCustomFood from '../components/addCustomFood.tsx';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function Diary()
 {
+    const [userId, setUserId] = useState('');
+    const [calories, setCalories] = useState('');
+    const [protein, setProtein] = useState('');
+    const [carbs, setCarbs] = useState('');
+    const [fats, setFats] = useState('');
+    const [macroData, setMacroData] = useState({
+        calories: 0,
+        protein: 0,
+        carbohydrates: 0,
+        fat: 0
+    });
+
+    // Effect to get user data from localStorage
+    useEffect(() => {
+        const userDataString = localStorage.getItem('user_data');
+        const userHealthString = localStorage.getItem('user_health');
+        if (userDataString) {
+            const userDataArray = JSON.parse(userDataString);
+            if (userDataArray && userDataArray.id) {
+                setUserId(userDataArray.id);
+            }
+        }
+        if (userHealthString) {
+            const userHealthArray = JSON.parse(userHealthString);
+            if (userHealthArray && userHealthArray.cal) {
+                setCalories(userHealthArray.cal);
+            }
+            if (userHealthArray && userHealthArray.prot) {
+                setProtein(userHealthArray.prot);
+            }
+            if (userHealthArray && userHealthArray.carb) {
+                setCarbs(userHealthArray.carb);
+            }
+            if (userHealthArray && userHealthArray.fat) {
+                setFats(userHealthArray.fat);
+            }
+        }
+
+    }, []);
+
+    useEffect(() => {
+        // Only call searchMeal after userId has been set
+        if (userId) {
+            createMacro();
+            getMacro();
+        }
+    }, [userId]); // This will run only when userId is updated
+
     const [foodModal, setFoodModal] = useState(false);
     const toggleFoodModal = () => {
         setFoodModal(!foodModal)
@@ -16,6 +64,75 @@ function Diary()
     const [addFoodModal, setAddFoodModal] = useState(false);
     const toggleAddFoodModal = () => {
         setAddFoodModal(!addFoodModal)
+    }
+    
+    // Function to handle new meal creation
+    async function createMacro(): Promise<void> {
+        const obj = {userId};
+
+        if (!userId) {
+            alert('User ID is missing!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://COP4331-t23.xyz:5079/api/createmacro', {
+                method: 'POST',
+                body: JSON.stringify(obj),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const res = await response.json();
+            if (res.success) {
+                console.log('Macro added successfully\n');
+            } else {
+                console.log(res.message || "An error occurred sending the meal.");
+            }
+        } catch (error: any) {
+            alert(error.toString());
+            return;
+        }
+    }
+
+    async function getMacro(id = userId) : Promise<void>
+    {
+        try
+        {
+            //const obj = {userId};
+            //var js = JSON.stringify(obj);
+
+            console.log("USER ID FOR DISPLAY IS: ", id);
+
+            const url = 'http://COP4331-t23.xyz:5079/api/getmacro/' + id;
+            console.log("full api url: " + url);
+            const response = await fetch(`${url}`,
+                {method:'GET', headers:{'Content-Type':'application/json'}}
+            );
+
+            var res = JSON.parse(await response.text());
+            
+
+            if(res.success){
+                console.log("Properly displaying macro health to user.")
+                setMacroData({
+                    calories: res.Macro.cal || 0,
+                    protein: res.Macro.prot || 0,
+                    carbohydrates: res.Macro.carb|| 0,
+                    fat: res.Macro.fat || 0
+                });
+            }
+            else if(res.message === "userId format doesn't conform with schema"){
+                console.log("userId format doesn't conform with schema\n");
+            }
+            else{
+                console.log(res.message || "An error occurred sending the email.");
+            }
+
+        }
+        catch(error:any)
+        {
+            alert(error.toString());
+            return;
+        }
     }
 
     return(
@@ -47,20 +164,20 @@ function Diary()
                                     <h2 className="modalHeader">Calories and Macros displayed here:</h2>
                                     
                                     <h3 className="modalSubHeader">Calories:</h3>
-                                    <label htmlFor="Calories">Required: *diplay user cals*</label><br/>
-                                    <label htmlFor="Calories">Consumed: *diplay cals consumed from food*</label><br/>
+                                    <label htmlFor="Calories">Required: {calories}</label><br/>
+                                    <label htmlFor="Calories">Consumed: {macroData.calories}</label><br/>
                                    
                                     <h3 className="modalSubHeader">Protien:</h3>
-                                    <label htmlFor="Calories">Required: *diplay user pro*</label><br/>
-                                    <label htmlFor="Calories">Consumed: *diplay pro consumed from food*</label><br/>
+                                    <label htmlFor="Calories">Required: {protein}</label><br/>
+                                    <label htmlFor="Calories">Consumed: {macroData.protein}</label><br/>
 
                                     <h3 className="modalSubHeader">Carbohydrates:</h3>
-                                    <label htmlFor="Calories">Required: *diplay user carb*</label><br/>
-                                    <label htmlFor="Calories">Consumed: *diplay carb consumed from food*</label><br/>
+                                    <label htmlFor="Calories">Required: {carbs}</label><br/>
+                                    <label htmlFor="Calories">Consumed: {macroData.carbohydrates}</label><br/>
 
                                     <h3 className="modalSubHeader">Fats:</h3>
-                                    <label htmlFor="Calories">Required: *diplay user fat*</label><br/>
-                                    <label htmlFor="Calories">Consumed: *diplay fat consumed from food*</label><br/>
+                                    <label htmlFor="Calories">Required: {fats}</label><br/>
+                                    <label htmlFor="Calories">Consumed: {macroData.fat}</label><br/>
 
                                     <button className="modalClose" onClick={toggleMacroModal}>
                                     CLOSE

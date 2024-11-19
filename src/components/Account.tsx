@@ -74,6 +74,9 @@ function Account()
 
             if(res.success){
                 setMessage('Health info saved\n');
+                const { cal, carb, prot, fat } = res.UserHealth;
+                const user = { cal, carb, prot, fat};
+                localStorage.setItem('user_health', JSON.stringify(user));
                 await displayUserHealth();
             }
             else if(res.message === "no duplicate UserHealth"){
@@ -162,6 +165,10 @@ function Account()
                     setMessage('Health info updated\n');
                     setEditing(false);
                     setIsEditable(false);
+                    
+                    const { cal, carb, prot, fat } = res.UserHealth;
+                    const user = { cal, carb, prot, fat};
+                    localStorage.setItem('user_health', JSON.stringify(user));
                 } else if (res.message === "no duplicate UserHealth") {
                     setMessage("No duplicate health info\n");
                 } else {
