@@ -170,7 +170,7 @@ function Recipes() {
                 <h2 className="diaryHeader">Custom Foods</h2>
                 <div className="diaryWrap" style={{ backgroundImage:`url(${kitchen})`, backgroundSize: "cover"}}>
                     <div className="diaryInput">
-                        <div className="diaryItem">
+                        <div className="customItem">
                             <label>Search Custom Foods:</label>
                             <input
                                 className="search"
