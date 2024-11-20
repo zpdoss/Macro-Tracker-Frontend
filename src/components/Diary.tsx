@@ -75,6 +75,7 @@ function Diary() {
             localStorage.setItem('meal_status', "0");
         }
         }
+        
     }, [userId]); // This will run only when userId is updated
 
     const [foodModal, setFoodModal] = useState(false);
@@ -111,6 +112,7 @@ function Diary() {
             const res = await response.json();
             if (res.success) {
                 console.log('Macro added successfully\n');
+                calculateTotalMacros();
             } else {
                 console.log(res.message || "An error occurred sending the meal.");
             }
@@ -134,6 +136,8 @@ function Diary() {
                     carbohydrates: res.Macro.carb || 0,
                     fat: res.Macro.fat || 0
                 });
+
+                calculateTotalMacros();
             } else {
                 console.log(res.message || "An error occurred sending the email.");
             }
@@ -185,6 +189,8 @@ function Diary() {
             const updatedMeals = [...foodList, newMeal];
             setFoodList(updatedMeals);
             localStorage.setItem(`user_meals_${userId}`, JSON.stringify(updatedMeals));
+
+            calculateTotalMacros();
         }
     };
 
@@ -199,14 +205,108 @@ function Diary() {
     
         // Update localStorage with the updated food list
         localStorage.setItem(`user_meals_${userId}`, JSON.stringify(updatedFoodList));
+
+        calculateTotalMacros();
     };
 
-    const handleClearDiary = () => {
+    async function handleClearDiary() {
         setFoodList([]); // Clear the state
     
         // Clear the localStorage for the current user meals
         localStorage.removeItem(`user_meals_${userId}`);
+
+        const search = "R";
+
+        try {
+            const url = 'http://COP4331-t23.xyz:5079/api/updatemacro/' + userId + '/' + search;
+            const response = await fetch(`${url}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } });
+
+            const res = JSON.parse(await response.text());
+
+            if (res.success) {
+                setMacroData({
+                    calories: res.Macro.cal || 0,
+                    protein: res.Macro.prot || 0,
+                    carbohydrates: res.Macro.carb || 0,
+                    fat: res.Macro.fat || 0
+                });
+            } else {
+                console.log(res.message || "An error occurred sending the email.");
+            }
+
+        } catch (error: any) {
+            alert(error.toString());
+            return;
+        }
+
+
     };
+
+    const updateMacrosWithCustom = async (totalCalories: number, totalProtein: number, totalCarbs: number, totalFats: number) => {
+        const url = `http://COP4331-t23.xyz:5079/api/updatemacro/${userId}/CU`;
+    
+        const body = {
+            cal: totalCalories,
+            prot: totalProtein,
+            carb: totalCarbs,
+            fat: totalFats
+        };
+    
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+    
+            const res = await response.json();
+            
+            if (res.success) {
+                console.log('Macros updated successfully:', res.Macro);
+            } else {
+                console.error('Failed to update macros:', res.message);
+            }
+        } catch (error) {
+            console.error('Error updating macros:', error);
+        }
+    };
+
+    const calculateTotalMacros = async (): Promise<void> => {
+        const mealsKey = `user_meals_${userId}`;
+        const mealsString = localStorage.getItem(mealsKey);
+        
+        if (mealsString) {
+            const meals = JSON.parse(mealsString);
+    
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFats = 0;
+    
+            meals.forEach((meal: any) => {
+                totalCalories += meal.cal || 0;
+                totalProtein += meal.prot || 0;
+                totalCarbs += meal.carb || 0;
+                totalFats += meal.fat || 0;
+            });
+    
+            // Store the calculated totals in state or use them directly
+            setMacroData({
+                calories: totalCalories,
+                protein: totalProtein,
+                carbohydrates: totalCarbs,
+                fat: totalFats
+            });
+            
+            console.log('Total Calories:', totalCalories);
+            console.log('Total Protein:', totalProtein);
+            console.log('Total Carbs:', totalCarbs);
+            console.log('Total Fats:', totalFats);
+
+            await updateMacrosWithCustom(totalCalories, totalProtein, totalCarbs, totalFats);
+        }
+    };
+    
 
 
 
