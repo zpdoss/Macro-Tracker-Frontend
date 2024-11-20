@@ -193,6 +193,12 @@ function Account()
     {
         event.preventDefault();
 
+        const confirmDelete = window.confirm("Are you sure you want to delete your health information?");
+        if (!confirmDelete) {
+            // User clicked cancel, do not proceed with deletion
+            return;
+        }
+
         try
         {
         //const obj = {userId};
@@ -234,12 +240,12 @@ function Account()
 
 
 
-    function resetPass(event:any) : void
-    {
-        event.preventDefault();
-        alert('Button Test - Password should be reset');
-        window.location.href = '/NewPass'
-    }
+    // function resetPass(event:any) : void
+    // {
+    //     event.preventDefault();
+    //     alert('Button Test - Password should be reset');
+    //     window.location.href = '/NewPass'
+    // }
 
     return(
         <>
@@ -271,8 +277,8 @@ function Account()
 
                 <input type="submit" id="accntButtons" className="buttons" value = "Delete" onClick={deleteInfo}/>
 
-                <input type="submit" id="loginButtons" className="buttons" value = "Reset Password"
-                onClick={resetPass} />
+                {/* <input type="submit" id="loginButtons" className="buttons" value = "Reset Password"
+                onClick={resetPass} /> */}
             </div>
         </>
     );

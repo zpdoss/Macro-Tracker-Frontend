@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import food from '../assets/greyFood.png';
 
-import {Search} from '../components/Search.tsx';
-import {SearchResult} from '../components/SearchResult.tsx';
+// import {Search} from '../components/Search.tsx';
+// import {SearchResult} from '../components/SearchResult.tsx';
 
 function Diary() {
     const [userId, setUserId] = useState('');
@@ -179,10 +179,10 @@ function Diary() {
     // Function to handle adding custom food item to localStorage
     const handleAddFood = () => {
         const foodName = (document.getElementById('loginInput') as HTMLInputElement)?.value;
-        const calories = (document.getElementById('modalInput') as HTMLInputElement)?.value;
-        const protein = (document.getElementById('modalInput') as HTMLInputElement)?.value;
-        const carbs = (document.getElementById('modalInput') as HTMLInputElement)?.value;
-        const fats = (document.getElementById('modalInput') as HTMLInputElement)?.value;
+        const calories = (document.getElementById('caloriesInput') as HTMLInputElement)?.value;
+        const protein = (document.getElementById('proteinInput') as HTMLInputElement)?.value;
+        const carbs = (document.getElementById('carbsInput') as HTMLInputElement)?.value;
+        const fats = (document.getElementById('fatsInput') as HTMLInputElement)?.value;
 
         if (foodName && calories && protein && carbs && fats) {
             const newMeal = {
@@ -208,6 +208,11 @@ function Diary() {
     };
 
     const handleDeleteFood = (foodItem: any) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete entry?");
+        if (!confirmDelete) {
+            // User clicked cancel, do not proceed with deletion
+            return;
+        }
         const updatedFoodList = foodList.filter(item => item !== foodItem);  // Remove the selected item from the list
         setFoodList(updatedFoodList); // Update the state
     
@@ -218,6 +223,11 @@ function Diary() {
     };
 
     async function handleClearDiary() {
+        const confirmDelete = window.confirm("Are you sure you want to clear entire diary?");
+        if (!confirmDelete) {
+            // User clicked cancel, do not proceed with deletion
+            return;
+        }
         setFoodList([]); // Clear the state
     
         // Clear the localStorage for the current user meals
@@ -316,7 +326,7 @@ function Diary() {
     };
     
     //Search Bar Crap
-    const[results, setResults] = useState([]);
+    //const[results, setResults] = useState([]);
 
 
     return (
@@ -325,7 +335,7 @@ function Diary() {
                 <h2 className="diaryHeader">Welcome to your food diary</h2>
 
                 <div className="diaryWrap" style={{ backgroundImage: `url(${food})` }}>
-                    <div className="diaryInput">
+                    {/* <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Food Database:</label>
                             <Search setResults={setResults}/>
@@ -336,7 +346,7 @@ function Diary() {
                             <button type="button" className="addFoodBtn">Add Food</button>
                         </div>
 
-                    </div>
+                    </div> */}
 
                     <div className="diaryBtnArea">
                         <button onClick={toggleMacroModal} className="secondaryBtn">Current Macros</button>
@@ -385,14 +395,14 @@ function Diary() {
                                     <label htmlFor="Pro">Protein(g):</label>
                                     </span><br />
 
-                                    <input type="text" id="modalInput" placeholder="150" /><span id="modalInputSpan">
-                                    <input type="text" id="modalInput" placeholder="10" /></span><br />
+                                    <input type="text" id="caloriesInput" placeholder="150" /><span id="modalInputSpan">
+                                    <input type="text" id="proteinInput" placeholder="10" /></span><br />
 
                                     <label htmlFor="Carb">Carbs(g):</label><span id="modalRow1">
                                     <label htmlFor="Fat">Fats(g):</label></span><br />
 
-                                    <input type="text" id="modalInput" placeholder="15" /><span id="modalInputSpan">
-                                    <input type="text" id="modalInput" placeholder="25" /></span><br />
+                                    <input type="text" id="carbsInput" placeholder="15" /><span id="modalInputSpan">
+                                    <input type="text" id="fatsInput" placeholder="25" /></span><br />
 
                                     <button className="modalClose" onClick={toggleAddFoodModal}>
                                         CLOSE

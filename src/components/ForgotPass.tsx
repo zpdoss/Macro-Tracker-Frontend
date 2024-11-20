@@ -55,10 +55,10 @@ function ForgotPass()
                 onClick={recoverPass} /> <br />
                 <span id="registerResult">{message}</span>
 
-            <label htmlFor="Email">Didn't recieve an email? Click here to have a new one sent: </label><br />
+            {/* <label htmlFor="Email">Didn't recieve an email? Click here to have a new one sent: </label><br />
             <input type="submit" id="loginButtons" className="buttons" value = "Resend"
-                onClick={recoverPass} />
-                </div>
+                onClick={recoverPass} /> */}
+        </div>
         </>
     );
 };

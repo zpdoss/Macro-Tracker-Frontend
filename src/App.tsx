@@ -31,7 +31,7 @@ function App() {
             <Route path="/Verify" element={<VerificationPage />} />
             <Route path="/ForgotPass" element={<ForgotPassPage />} />
             <Route path="/NewPass" element={<NewPassPage />} />
-            <Route path="/reset-password" element={<ResetPassPage />} />
+            <Route path="/reset-password/:token" element={<ResetPassPage />} />
           </Routes>
         </BrowserRouter>
       </div>

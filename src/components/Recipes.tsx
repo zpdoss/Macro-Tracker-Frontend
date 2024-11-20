@@ -95,6 +95,7 @@ function Recipes() {
             const res = await response.json();
             if (res.success) {
                 console.log('Meal added successfully\n');
+                setMeals(prevMeals => [...prevMeals, res.meal]);
             } else {
                 console.log(res.message || "An error occurred sending the meal.");
             }
@@ -140,6 +141,11 @@ function Recipes() {
 
     // Function to delete a meal by its ID
     const deleteMeal = async (mealId: string) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete meal?");
+        if (!confirmDelete) {
+            // User clicked cancel, do not proceed with deletion
+            return;
+        }
         try {
             const response = await fetch(
                 `http://COP4331-t23.xyz:5079/api/deletemeal/${mealId}`,

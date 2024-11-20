@@ -666,6 +666,58 @@ body {
   color: black;
 }
 
+#caloriesInput{
+  height: 50px;
+  width: 45%;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  padding: 0px 75px 0px 0px;
+  background: #ffffff;
+  color: black;
+}
+
+#proteinInput{
+  height: 50px;
+  width: 45%;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  padding: 0px 75px 0px 0px;
+  background: #ffffff;
+  color: black;
+}
+
+#carbsInput{
+  height: 50px;
+  width: 45%;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  padding: 0px 75px 0px 0px;
+  background: #ffffff;
+  color: black;
+}
+
+#fatsInput{
+  height: 50px;
+  width: 45%;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  padding: 0px 75px 0px 0px;
+  background: #ffffff;
+  color: black;
+}
+
 .modalFoodBtn{
   background-color: #444444;
   color: #ffffff;
