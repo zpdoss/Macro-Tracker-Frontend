@@ -485,6 +485,32 @@ body {
   text-decoration: underline;
 }
 
+/*Search Bar*/
+.diarySearch{
+  border-radius: 5px;
+
+}
+
+.resultList{
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  max-height: 100px;
+  overflow-y: scroll;
+  padding: 0px 10px;
+}
+
+.resultList::-webkit-scrollbar{
+  scrollbar-width: thin;
+}
+
+.resultItem:hover{
+  background-color: #efefef;
+  cursor: pointer;
+}
+
 .search{
   border-radius: 5px;
 }

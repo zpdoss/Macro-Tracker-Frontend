@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import food from '../assets/greyFood.png';
 
+import {Search} from '../components/Search.tsx';
+import {SearchResult} from '../components/SearchResult.tsx';
+
 function Diary() {
     const [userId, setUserId] = useState('');
     const [calories, setCalories] = useState('');
@@ -312,7 +315,8 @@ function Diary() {
         }
     };
     
-
+    //Search Bar Crap
+    const[results, setResults] = useState([]);
 
 
     return (
@@ -324,8 +328,9 @@ function Diary() {
                     <div className="diaryInput">
                         <div className="diaryItem">
                             <label>Search Food Database:</label>
-                            <input className="search" type="text" placeholder="Apple" />
-                        </div>
+                            <Search setResults={setResults}/>
+                            <SearchResult results={results}/>
+                            </div>
 
                         <div className="diaryItem">
                             <button type="button" className="addFoodBtn">Add Food</button>
