@@ -193,6 +193,23 @@ function Diary() {
         toggleFoodModal();
     };
 
+    const handleDeleteFood = (foodItem: any) => {
+        const updatedFoodList = foodList.filter(item => item !== foodItem);  // Remove the selected item from the list
+        setFoodList(updatedFoodList); // Update the state
+    
+        // Update localStorage with the updated food list
+        localStorage.setItem(`user_meals_${userId}`, JSON.stringify(updatedFoodList));
+    };
+
+    const handleClearDiary = () => {
+        setFoodList([]); // Clear the state
+    
+        // Clear the localStorage for the current user meals
+        localStorage.removeItem(`user_meals_${userId}`);
+    };
+
+
+
     return (
         <>
             <div className="diary">
@@ -278,7 +295,7 @@ function Diary() {
                             </div>
                         )}
 
-                        <button className="clearBtn">Clear Diary</button>
+                        <button className="clearBtn" onClick={handleClearDiary}>Clear Diary</button>
                     </div>
 
                     <div className="foodList">
@@ -312,7 +329,7 @@ function Diary() {
                                         </div>
                                     </div>
                                 )}
-                                <button className="diaryDeleteBtn">Delete</button>
+                                <button className="diaryDeleteBtn" onClick={() => handleDeleteFood(foodItem)}>Delete</button>
                             </div>
                         ))}
                     </div>
