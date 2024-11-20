@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import aBG from '../assets/accntBG.png';
+
 
 function Account()
 {
@@ -240,7 +242,7 @@ function Account()
         <>
             <h2 id="accntTitle">Account Page</h2>
 
-            <div id="accountDiv">
+            <div id="accountDiv" style={{ backgroundImage:`url(${aBG})`}}>
                 
                 <h3 id="accntGoals">Set your goals here:</h3>
                 <label id="accntRow1" htmlFor="Calories">Calories:</label>

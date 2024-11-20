@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import lBG from '../assets/loginBG.png'
 
 function Login()
 {
@@ -68,7 +69,7 @@ function Login()
 
     return(
         <> 
-            <div id="loginDiv">
+            <div id="loginDiv" style={{ backgroundImage:`url(${lBG})`}}>
                 
                 <br/>
                 <label id="loginLabel" htmlFor="username">Username:</label><br />

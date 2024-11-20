@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import lBG from '../assets/loginBG.png';
 
 function Register()
 {
@@ -89,7 +90,7 @@ function Register()
     return(
         <>
             
-            <div id="registerDiv">
+            <div id="registerDiv" style={{ backgroundImage:`url(${lBG})`}}>
                 <br />
 
                 <label id="loginLabel" htmlFor="First Name">First Name</label><span id="registerLabelSpan">

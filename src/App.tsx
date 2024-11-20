@@ -14,6 +14,7 @@ import RecipesPage from './pages/RecipesPage.tsx';
 import VerificationPage from './pages/VerificationPage.tsx';
 import ForgotPassPage from './pages/ForgotPassPage.tsx';
 import NewPassPage from './pages/NewPassPage.tsx';
+import ResetPassPage from './pages/ResetPassPage.tsx';
 
 function App() {
     return(
@@ -30,6 +31,7 @@ function App() {
             <Route path="/Verify" element={<VerificationPage />} />
             <Route path="/ForgotPass" element={<ForgotPassPage />} />
             <Route path="/NewPass" element={<NewPassPage />} />
+            <Route path="/reset-password" element={<ResetPassPage />} />
           </Routes>
         </BrowserRouter>
       </div>
