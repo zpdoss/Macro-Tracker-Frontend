@@ -27,9 +27,17 @@ function CustomLink({ to, children, ...props }:any)
 {
     const resolvedPath = useResolvedPath(to)
     const isActive = useMatch({ path: resolvedPath.pathname, end:true })
+    
+    const handleClick = () => {
+        // Clear 'user_data' from local storage when clicking Log Out
+        if (to === "/") {
+            localStorage.removeItem('user_data');
+        }
+    };
+    
     return (
         <li className={isActive ? "active" : ""}>
-        <Link to={to} {...props}>
+        <Link to={to} {...props} onClick={handleClick}>
             {children}
         </Link>
 

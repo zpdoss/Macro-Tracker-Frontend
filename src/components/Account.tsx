@@ -25,6 +25,9 @@ function Account()
                 displayUserHealth(userDataArray.id); // Call displayUserHealth with userId
             }
         }
+        else if (!userDataString){
+            window.location.href = '/';
+        }
     }, []);
 
     function handleSetCalories( e: any ) : void

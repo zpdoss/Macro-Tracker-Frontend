@@ -22,6 +22,9 @@ function Recipes() {
                 setUserId(userDataArray.id);
             }
         }
+        else if (!userDataString){
+            window.location.href = '/';
+        }
     }, []);
 
     useEffect(() => {

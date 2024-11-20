@@ -6,10 +6,24 @@ import Noah from '../assets/Noah.jpg';
 import James from '../assets/James.jpg';
 
 import abtVeg from '../assets/AbtVeg.png';
+import { useEffect } from 'react';
 
 
 function AboutUs()
 {
+    // Effect to get user data from localStorage
+    useEffect(() => {
+        const userDataString = localStorage.getItem('user_data');
+        if (userDataString) {
+            const userDataArray = JSON.parse(userDataString);
+            if (userDataArray && userDataArray.id) {
+            }
+        }
+        else if (!userDataString){
+            window.location.href = '/';
+        }
+    }, []);
+
     return(
         <>
             <h2 id="aboutTitle">About Us</h2>

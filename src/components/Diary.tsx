@@ -30,6 +30,11 @@ function Diary() {
                 displayUserHealth(userDataArray.id);
             }
         }
+        else if (!userDataString){
+            window.location.href = '/';
+        }
+
+
         if (userHealthString) {
             const userHealthArray = JSON.parse(userHealthString);
             if (userHealthArray && userHealthArray.cal) {
