@@ -170,7 +170,7 @@ function Recipes() {
         setCarbs(meal.carb);
         setFats(meal.fat);
 
-        const user = { name: meal.name, cal: meal.cal, prot: meal.prot, carb: meal.carb, fat: meal.carb};
+        const user = { name: meal.name, cal: meal.cal, prot: meal.prot, carb: meal.carb, fat: meal.fat};
         localStorage.setItem('user_meal', JSON.stringify(user));
 
         localStorage.setItem('meal_status', "1")
