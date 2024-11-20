@@ -110,10 +110,10 @@ function Recipes() {
     async function updateMeal(mealId: string): Promise<void> {
         const updatedMeal = {
             name: mealName,
-            cal: calories,
-            prot: protein,
-            carb: carbs,
-            fat: fats
+            cal: Number(calories),
+            prot: Number(protein),
+            carb: Number(carbs),
+            fat: Number(fats)
         };
         try {
             const response = await fetch(`http://COP4331-t23.xyz:5079/api/updatemeal/${mealId}`, {
